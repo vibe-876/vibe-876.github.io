@@ -1,0 +1,42 @@
+body {
+    background-color: #101020;
+
+    margin: 0;
+    padding: 0;
+
+    min-height: 100vh;
+}
+
+h1 {
+    color: #DDDDDD;
+    margin: 20px;
+    padding-bottom: 30px;
+    text-align: left;
+    text-decoration: underline;
+}
+
+h2 {
+    color: #DDDDDD;
+    padding-left: 25px;
+    text-decoration: underline;
+}
+
+h3 {
+    color: #DDDDDD;
+    padding-left: 30px;
+}
+
+p {
+    color: #DDDDDD;
+    padding-left: 50px;
+    padding-right: 50%;
+}
+
+ul {
+    color: #DDDDDD;
+    padding-left: 75px;
+}
+
+a {
+    color: #AAAAAA;
+}
