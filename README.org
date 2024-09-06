@@ -1,0 +1,4 @@
+#+author: Cam
+
+* Website
+This is my personal website. I've decided to redo it, so It'll look bad for a while.
