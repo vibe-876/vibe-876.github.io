@@ -16,6 +16,7 @@ a {
 }
 
 
+/* Believe it or not, the sidebar! */
 .sidebar {
     margin: 0px;
     padding: 0px;
@@ -41,8 +42,17 @@ a {
 }
 
 
+/* For the humany-content of the webpage. */
 .content {
     margin-left: 200px;
     padding: 1px 16px;
     height: 1000px;
+}
+
+.content h2 {
+    margin-top: 50px;
+}
+
+.content p {
+    margin-top: 5px;
 }
