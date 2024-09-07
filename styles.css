@@ -56,3 +56,8 @@ a {
 .content p {
     margin-top: 5px;
 }
+
+.content li {
+    text-decoration: underline;
+    /* font-style: italic; */
+}
