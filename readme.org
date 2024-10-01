@@ -1,0 +1,6 @@
+#+title: My Personal Website
+#+author: Cam A.
+
+
+* My Website
+There is no point to this, it is just my website.
