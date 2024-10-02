@@ -1,7 +1,7 @@
 #+title: Index
 #+author: Cam
 
-#+export_file_name: export/index.html
+#+setupfile: setup.org
 #+html_head: <link rel="stylesheet" href="styles.css">
 
 
@@ -9,4 +9,4 @@
 Hello, my name is Cam.
 This is my website.
 
-There are various pages, namely 
+There are various pages, namely [[./prog.html][my programming page]], and my (nothing there yet) [[./blog.html][blog]].

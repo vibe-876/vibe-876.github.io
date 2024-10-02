@@ -1,7 +1,6 @@
 #+title: Programming
 #+author: Cam
 
-#+export_file_name: export/prog.html
 #+html_head: <link rel="stylesheet" href="styles.css">
 
 
@@ -11,3 +10,5 @@ Programming is really cool -- it's (in my mind) a way that we can describe maths
 Some of the languages that I adore include:
 - Lisp (emacs lisp and scheme)
 - Haskell
+
+I also use GNU Emacs -- if you're interested, my config is [[https://github.com/vibe-876/emacs-config][here]] :) .

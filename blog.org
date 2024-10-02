@@ -1,0 +1,8 @@
+#+title: Blog
+#+author: Cam
+
+#+setupfile: setup.org
+#+html_head: <link rel="stylesheet" href="styles.css">
+
+
+Nothing to see here...
