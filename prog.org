@@ -1,0 +1,13 @@
+#+title: Programming
+#+author: Cam
+
+#+export_file_name: export/prog.html
+#+html_head: <link rel="stylesheet" href="styles.css">
+
+
+* Programming!
+Programming is really cool -- it's (in my mind) a way that we can describe maths to a machine, and have it understand it.
+
+Some of the languages that I adore include:
+- Lisp (emacs lisp and scheme)
+- Haskell

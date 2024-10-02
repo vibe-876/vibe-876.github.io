@@ -7,3 +7,6 @@
 
 * Home Page
 Hello, my name is Cam.
+This is my website.
+
+There are various pages, namely 
