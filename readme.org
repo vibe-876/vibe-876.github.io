@@ -4,3 +4,5 @@
 
 * My Website
 There is no point to this, it is just my website.
+
+If you want to run it (for some reason), then I've written a little emacs lisp program to compile it, found in ~make.el~.
