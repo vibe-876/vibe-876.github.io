@@ -15,3 +15,8 @@ h2, p, li {
 a {
     color: #c05cff;
 }
+
+.src {
+    background-color: #000000;
+    color: #ffffff;
+}
