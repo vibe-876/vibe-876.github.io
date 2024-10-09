@@ -1,4 +1,4 @@
-#+title: Programming
+#+title: [[./index.html][Programming]]
 #+author: Cam
 
 #+setup: setup.org
@@ -11,5 +11,11 @@ Programming is really cool -- it's (in my mind) a way that we can describe maths
 Some of the languages that I adore include:
 - Lisp (emacs lisp and scheme)
 - Haskell
+#+begin_src elisp
+  (defun my/build (&optional file)
+    (interactive)
+    (save-file)
+    (compile))
+#+end_src
 
 I also use GNU Emacs -- if you're interested, my config is [[https://github.com/vibe-876/emacs-config][here]] :) .

@@ -1,12 +1,15 @@
-#+title: Index
+#+title: [[./index.html][Home]]
 #+author: Cam
 
-#+setupfile: setup.org
 #+html_head: <link rel="stylesheet" href="styles.css">
+
 
 
 * Home Page
 Hello, my name is Cam.
 This is my website.
 
-There are various pages, namely [[./prog.html][my programming page]], and my (nothing there yet) [[./blog.html][blog]].
+There are various pages, namely [[./prog.html][my programming page]], and my [[./blog.html][blog]].
+
+* Notes
+The title of each page also acts as a link back the index page, so navigation can be done by that (once I figure out how to get a bar menu working in org mode exports, I'll start doing that instead lol).

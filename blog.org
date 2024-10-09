@@ -1,9 +1,9 @@
-#+title: Blog
+#+title: [[./index.html][Blog]]
 #+author: Cam
 
 #+options: toc:t
-#+setupfile: setup.org
 #+html_head: <link rel="stylesheet" href="styles.css">
+
 
 
 * Configuring Emacs to Work With an Arduino
