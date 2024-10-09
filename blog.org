@@ -1,8 +1,62 @@
 #+title: Blog
 #+author: Cam
 
+#+options: toc:t
 #+setupfile: setup.org
 #+html_head: <link rel="stylesheet" href="styles.css">
 
 
-Nothing to see here...
+* Configuring Emacs to Work With an Arduino
+So my university wants me to use an arduino for the introduction to programming module.
+I really like this, because I'm already confident enough to not be given a lot of challenge by the module, so I've been entertaining myself by doing things the hard way.
+
+First, instead of installing the arduino IDE, I connected over serial in a pseudo-terminal.
+#+begin_src shell
+  arduino-cli compile --fqbn arduino:avr:uno .
+  arduino-cli upload --port /dev/ttyACM0 --fqbn arduino:avr:uno .
+  cat /dev/ttyACM0
+#+end_src
+
+This worked, but was a pain; everything other than compiling required me to use ~sudo~, which was annoying.
+The fix for this was to add my user to the ~uucp~ group, which allowed me access to serial ports.
+
+Next, I started trying to bring my development into emacs.
+This started as just having my program in one window, and eshell in another, but that was getting tedious, and I wanted something better.
+
+I did some digging, and I discovered ~serial-term~, which is an emacs procedure that allows you to connect to a serial port with a pseudo-terminal in a buffer.
+I then threw together some emacs lisp in the scratch buffer, and got a prototype procedure that compiles and loads the program, and then connects to the serial port of the arduino, so that I could communicate with it.
+After some time with this, I moved it over to my ~init.org~ file, and did some tweaks to make it a bit more ready for actual use.
+I made sure it ran, did some more tweaks, and then commited my changes.
+
+Now when I want to run some program on an arduino, I can run ~C-c M-c~, and emacs will compile the program, load it onto the arduino, and then give me a buffer to interact with it.
+It's as easy as that -- the procedure is shown below.
+#+begin_src elisp
+  (defun my/arduino-compile-and-load (&optional board-name board-port path-to-root)
+    "Just compiles and then loads an arduino sketch.
+  Meant to be used alongside `serial-term'.
+
+  Defaults to an arduino uno, because that's what I use.
+
+  If a serial connection is already open inside emacs for the
+  port that we want to connect to, it kills that buffer."
+    (interactive)
+    (when (equal board-name nil) (setq board-name "arduino:avr:uno"))
+    (when (equal board-port nil) (setq board-port "/dev/ttyACM0"))
+    (when (equal path-to-root nil) (setq path-to-root "."))
+
+    
+    (let ((arduino-buffer "*arduino-logs*"))
+      (get-buffer arduino-buffer)
+      (switch-to-buffer-other-window arduino-buffer)
+
+      (when (not (equal (get-buffer board-port) nil))
+        (kill-buffer board-port))
+      
+      (start-process "arduino-compiling-stuff" arduino-buffer "arduino-cli" "compile" "--fqbn" board-name path-to-root)
+      (start-process "arduino-loading-stuff" arduino-buffer "arduino-cli" "upload" "--port" board-port "--fqbn" board-name path-to-root)
+
+      (serial-term board-port 9600)
+      (switch-to-buffer board-port)))
+#+end_src
+
+My full [[https://github.com/vibe-876/emacs-config][emacs config]] is also available on my github.

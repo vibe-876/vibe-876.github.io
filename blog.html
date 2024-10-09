@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-10-02 Wed 18:51 -->
+<!-- 2024-10-10 Thu 00:09 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Blog</title>
@@ -197,12 +197,91 @@
 <body>
 <div id="content" class="content">
 <h1 class="title">Blog</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org90747f5">1. Configuring Emacs to Work With an Arduino</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org90747f5" class="outline-2">
+<h2 id="org90747f5"><span class="section-number-2">1.</span> Configuring Emacs to Work With an Arduino</h2>
+<div class="outline-text-2" id="text-1">
 <p>
-Nothing to see here&#x2026;
+So my university wants me to use an arduino for the introduction to programming module.
+I really like this, because I'm already confident enough to not be given a lot of challenge by the module, so I've been entertaining myself by doing things the hard way.
+</p>
+
+<p>
+First, instead of installing the arduino IDE, I connected over serial in a pseudo-terminal.
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">arduino-cli compile --fqbn arduino:avr:uno .
+arduino-cli upload --port /dev/ttyACM0 --fqbn arduino:avr:uno .
+cat /dev/ttyACM0
+</pre>
+</div>
+
+<p>
+This worked, but was a pain; everything other than compiling required me to use <code>sudo</code>, which was annoying.
+The fix for this was to add my user to the <code>uucp</code> group, which allowed me access to serial ports.
+</p>
+
+<p>
+Next, I started trying to bring my development into emacs.
+This started as just having my program in one window, and eshell in another, but that was getting tedious, and I wanted something better.
+</p>
+
+<p>
+I did some digging, and I discovered <code>serial-term</code>, which is an emacs procedure that allows you to connect to a serial port with a pseudo-terminal in a buffer.
+I then threw together some emacs lisp in the scratch buffer, and got a prototype procedure that compiles and loads the program, and then connects to the serial port of the arduino, so that I could communicate with it.
+After some time with this, I moved it over to my <code>init.org</code> file, and did some tweaks to make it a bit more ready for actual use.
+I made sure it ran, did some more tweaks, and then commited my changes.
+</p>
+
+<p>
+Now when I want to run some program on an arduino, I can run <code>C-c M-c</code>, and emacs will compile the program, load it onto the arduino, and then give me a buffer to interact with it.
+It's as easy as that &#x2013; the procedure is shown below.
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #f8f8f2;">(</span><span style="color: #ff79c6; font-weight: bold;">defun</span> <span style="color: #50fa7b; font-weight: bold;">my/arduino-compile-and-load</span> <span style="color: #8be9fd;">(</span><span style="color: #8be9fd; font-style: italic;">&amp;optional</span> board-name board-port path-to-root<span style="color: #8be9fd;">)</span>
+  <span style="color: #6272a4;">"Just compiles and then loads an arduino sketch.</span>
+<span style="color: #6272a4;">Meant to be used alongside `</span><span style="color: #bd93f9;">serial-term</span><span style="color: #6272a4;">'.</span>
+
+<span style="color: #6272a4;">Defaults to an arduino uno, because that's what I use.</span>
+
+<span style="color: #6272a4;">If a serial connection is already open inside emacs for the</span>
+<span style="color: #6272a4;">port that we want to connect to, it kills that buffer."</span>
+  <span style="color: #8be9fd;">(</span><span style="color: #ff79c6; font-weight: bold;">interactive</span><span style="color: #8be9fd;">)</span>
+  <span style="color: #8be9fd;">(</span><span style="color: #ff79c6; font-weight: bold;">when</span> <span style="color: #bd93f9;">(</span>equal board-name nil<span style="color: #bd93f9;">)</span> <span style="color: #bd93f9;">(</span><span style="color: #ff79c6; font-weight: bold;">setq</span> board-name <span style="color: #f1fa8c;">"arduino:avr:uno"</span><span style="color: #bd93f9;">)</span><span style="color: #8be9fd;">)</span>
+  <span style="color: #8be9fd;">(</span><span style="color: #ff79c6; font-weight: bold;">when</span> <span style="color: #bd93f9;">(</span>equal board-port nil<span style="color: #bd93f9;">)</span> <span style="color: #bd93f9;">(</span><span style="color: #ff79c6; font-weight: bold;">setq</span> board-port <span style="color: #f1fa8c;">"/dev/ttyACM0"</span><span style="color: #bd93f9;">)</span><span style="color: #8be9fd;">)</span>
+  <span style="color: #8be9fd;">(</span><span style="color: #ff79c6; font-weight: bold;">when</span> <span style="color: #bd93f9;">(</span>equal path-to-root nil<span style="color: #bd93f9;">)</span> <span style="color: #bd93f9;">(</span><span style="color: #ff79c6; font-weight: bold;">setq</span> path-to-root <span style="color: #f1fa8c;">"."</span><span style="color: #bd93f9;">)</span><span style="color: #8be9fd;">)</span>
+
+
+  <span style="color: #8be9fd;">(</span><span style="color: #ff79c6; font-weight: bold;">let</span> <span style="color: #bd93f9;">(</span><span style="color: #ff79c6;">(</span>arduino-buffer <span style="color: #f1fa8c;">"*arduino-logs*"</span><span style="color: #ff79c6;">)</span><span style="color: #bd93f9;">)</span>
+    <span style="color: #bd93f9;">(</span>get-buffer arduino-buffer<span style="color: #bd93f9;">)</span>
+    <span style="color: #bd93f9;">(</span>switch-to-buffer-other-window arduino-buffer<span style="color: #bd93f9;">)</span>
+
+    <span style="color: #bd93f9;">(</span><span style="color: #ff79c6; font-weight: bold;">when</span> <span style="color: #ff79c6;">(</span>not <span style="color: #ffb86c;">(</span>equal <span style="color: #50fa7b;">(</span>get-buffer board-port<span style="color: #50fa7b;">)</span> nil<span style="color: #ffb86c;">)</span><span style="color: #ff79c6;">)</span>
+      <span style="color: #ff79c6;">(</span>kill-buffer board-port<span style="color: #ff79c6;">)</span><span style="color: #bd93f9;">)</span>
+
+    <span style="color: #bd93f9;">(</span>start-process <span style="color: #f1fa8c;">"arduino-compiling-stuff"</span> arduino-buffer <span style="color: #f1fa8c;">"arduino-cli"</span> <span style="color: #f1fa8c;">"compile"</span> <span style="color: #f1fa8c;">"--fqbn"</span> board-name path-to-root<span style="color: #bd93f9;">)</span>
+    <span style="color: #bd93f9;">(</span>start-process <span style="color: #f1fa8c;">"arduino-loading-stuff"</span> arduino-buffer <span style="color: #f1fa8c;">"arduino-cli"</span> <span style="color: #f1fa8c;">"upload"</span> <span style="color: #f1fa8c;">"--port"</span> board-port <span style="color: #f1fa8c;">"--fqbn"</span> board-name path-to-root<span style="color: #bd93f9;">)</span>
+
+    <span style="color: #bd93f9;">(</span>serial-term board-port 9600<span style="color: #bd93f9;">)</span>
+    <span style="color: #bd93f9;">(</span>switch-to-buffer board-port<span style="color: #bd93f9;">)</span><span style="color: #8be9fd;">)</span><span style="color: #f8f8f2;">)</span>
+</pre>
+</div>
+
+<p>
+My full <a href="https://github.com/vibe-876/emacs-config">emacs config</a> is also available on my github.
 </p>
 </div>
+</div>
+</div>
 <div id="postamble" class="status">
-<p class="date">Created: 2024-10-02 Wed 18:51</p>
+<p class="date">Created: 2024-10-10 Thu 00:09</p>
 </div>
 </body>
 </html>
