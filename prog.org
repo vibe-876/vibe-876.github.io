@@ -1,7 +1,6 @@
 #+title: [[./index.html][Programming]]
 #+author: Cam
 
-#+setup: setup.org
 #+html_head: <link rel="stylesheet" href="styles.css">
 
 
@@ -10,12 +9,13 @@ Programming is really cool -- it's (in my mind) a way that we can describe maths
 
 Some of the languages that I adore include:
 - Lisp (emacs lisp and scheme)
-- Haskell
-#+begin_src elisp
-  (defun my/build (&optional file)
-    (interactive)
-    (save-file)
-    (compile))
-#+end_src
+  Emacs lisp is an obvious one for me; I use emacs for everything barring: window managment, browsing the more graphical bits of the web, and playing dwarf fortress. Wielding the power of emacs lisp, I can bring emacs to do a whole set of fun things, like having a 600 line literate config file that my friends make fun of for being "bloat" (but I'd like to see them communicate with an arduino in neovim), and just being able to use emacs to its fullest. It's a /really/ nice feeling to be able to do that.
 
-I also use GNU Emacs -- if you're interested, my config is [[https://github.com/vibe-876/emacs-config][here]] :) .
+  My other lisp of choice is scheme. I usually use gnu guile, which does everything that I need it to. If the gnu project ever manages to get the repl for guile to run emacs lisp, that may be one of the best days of my life.
+
+- Haskell
+  Haskell is just beautiful, in the opposite way to how lisp is. It very much appeals to my more mathematical side, and it introduced me to the awesome powers of abstract algebra.
+
+Whenever I encounter a problem, my mind seems to either go to "this would be easy in lisp", or "this would be easy in haskell". I find that those two complement each other very well. Maybe if I were better at prolog, I'd be able to complete the trinity of elder AI languages, but for now that stays somewhat rusty (which is another thing I need to practise more lol)...
+* How I do my Programming
+I do almost all of my programming in emacs, although sometimes shell things are done in neovim, such as editing ~/etc~ files.
