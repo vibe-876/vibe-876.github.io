@@ -19,3 +19,9 @@ Some of the languages that I adore include:
 Whenever I encounter a problem, my mind seems to either go to "this would be easy in lisp", or "this would be easy in haskell". I find that those two complement each other very well. Maybe if I were better at prolog, I'd be able to complete the trinity of elder AI languages, but for now that skill stays somewhat rusty (which is another thing I need to practise more lol)...
 * How I do my Programming
 I do almost all of my programming in emacs, although sometimes shell things are done in neovim, such as editing ~/etc~ files.
+* Programming Projects
+The largest "project" that I have is my emacs configuration file.
+
+Beyond that, there is ~mush~, which is a shell that I rewrite about once a year. Due to bit rot, the C version is no longer working, but I'm currently rewriting it in guile lisp.
+
+Beyond that, my only other active project is trying to get a very basic lisp REPL running on an arduino.
