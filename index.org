@@ -6,7 +6,7 @@
 
 
 * Home Page
-Hello, my name is Cam.
+Hello, my name is Cam. I am a first year University Student studying computer science and maths.
 This is my website.
 
 There are various pages, namely [[./prog.html][my programming page]], and my [[./blog.html][blog]].
