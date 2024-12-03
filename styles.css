@@ -17,10 +17,13 @@ body {
     padding-bottom: 20px;
     
     background: #3b1c32;
+    border-style: solid;
+    border-color: #cccacc;
+    border-width: 1px;
 }
 
-.middle_box h1 {
-    padding-top: 40px;
+.middle_box h1 {    
+    padding-top: 20px;
     
     color: #ca7eb5;
 }
