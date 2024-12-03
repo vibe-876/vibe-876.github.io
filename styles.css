@@ -4,7 +4,7 @@ body {
 
 
 .middle_box {
-    margin-top: 50px;
+    margin-top: 10px;
     margin-left: 60vh;
     margin-right: 60vh;
     border: 0px;
@@ -35,4 +35,33 @@ body {
     text-align: left;
     padding-left: 20vh;
     list-style-position: inside;
+}
+
+
+/* Believe it or not: the top bar. */
+.top_bar {
+    margin-top: 25px;
+    margin-left: 60vh;
+    margin-right: 60vh;
+
+    overflow: hidden;
+
+    background: #3b1c32;
+    border-style: solid;
+    border-color: #cccacc;
+    border-width: 1px;
+
+}
+
+.top_bar a {
+    float: left;
+    text-align: center;
+    padding: 20px 20px;
+
+    color: #cccacc;
+    text-decoration: none;
+}
+
+.top_bar a:hover {
+    background: #5b3c62;
 }
