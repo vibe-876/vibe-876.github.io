@@ -1,11 +1,30 @@
 body {
-    background: #111111;
+    background: #1a1a1d;
+}
+
+
+.middle_box {
+    margin-top: 50px;
+    margin-left: 60vh;
+    margin-right: 60vh;
+    border: 0px;
+    
+/*    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;*/
+
+    text-align: center;
+    padding-bottom: 20px;
+    
+    background: #3b1c32;
 }
 
 .middle_box h1 {
-    color: #ff79ad;
+    padding-top: 40px;
+    
+    color: #ca7eb5;
 }
 
 .middle_box p {
-    color: #cccccc;
+    color: #cccacc;
 }
