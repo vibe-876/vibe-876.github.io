@@ -29,3 +29,10 @@ body {
     padding-top: 0px;
     color: #cccacc;
 }
+
+.middle_box li {
+    color: #cccacc;
+    text-align: left;
+    padding-left: 20vh;
+    list-style-position: inside;
+}
