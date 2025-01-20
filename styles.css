@@ -1,5 +1,6 @@
 body {
-    background-image: linear-gradient(to right, #c365be, #938ae6);
+    background-color: #c365be;
+    font-family: "Monaco";
 }
 
 
@@ -19,9 +20,12 @@ body {
     border-radius: 4px;
 }
 
-.middle_box h1, h2 {    
+.middle_box h1, h2 {
     padding-top: 20px;
     color: #8f428d;
+
+    font-family: Helvetica;
+    font-style: none;
 }
 
 .middle_box p {
@@ -29,10 +33,13 @@ body {
     padding-bottom: 10px;
     padding-top: 0px;
     color: #8056a4;
+
+    font-family: Helvetica;
 }
 
 .middle_box a {
     color: #0070ae;
+    font-family: "Courier New";
     text-decoration: none;
 }
 
@@ -62,6 +69,8 @@ body {
 }
 
 .top_bar a {
+    font-family: "Courier New";
+    
     float: left;
     text-align: center;
     padding: 20px 20px;
