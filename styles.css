@@ -1,6 +1,7 @@
 body {
-    background-color: #c365be;
-    font-family: "Monaco";
+    //    background-color: #6f2232;
+    background-color: #2a2a2d;
+    font-family: Georgia;
 }
 
 
@@ -13,7 +14,7 @@ body {
     text-align: center;
     padding-bottom: 20px;
     
-    background: #f4e2d0;
+    background: #1a1a1d;
     border-style: solid;
     border-color: #0a0a0a;
     border-width: 2px;
@@ -22,9 +23,8 @@ body {
 
 .middle_box h1, h2 {
     padding-top: 20px;
-    color: #8f428d;
+    color: #950740;
 
-    font-family: Helvetica;
     font-style: none;
 }
 
@@ -32,22 +32,13 @@ body {
     padding: 12%;
     padding-bottom: 10px;
     padding-top: 0px;
-    color: #8056a4;
-
-    font-family: Helvetica;
+    color: #c3073f;
 }
 
 .middle_box a {
-    color: #0070ae;
+    color: #c3073f;
     font-family: "Courier New";
     text-decoration: none;
-}
-
-.middle_box li {
-    color: #8056a4;
-    text-align: left;
-    padding-left: 18%;
-    list-style-position: inside;
 }
 
 
@@ -61,7 +52,7 @@ body {
     display: flex;
     justify-content: space-evenly;
 
-    background: #f4e2d0;
+    background: #1a1a1d;
     border-style: solid;
     border-color: ##0a0a0a;
     border-width: 2px;
@@ -69,12 +60,10 @@ body {
 }
 
 .top_bar a {
-    font-family: "Courier New";
-    
     float: left;
     text-align: center;
     padding: 20px 20px;
 
-    color: #0070ae;
+    color: #cf2232;
     text-decoration: none;
 }
