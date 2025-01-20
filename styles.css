@@ -21,11 +21,16 @@ body {
     border-radius: 4px;
 }
 
-.middle_box h1, h2 {
+.middle_box h1, h2, h3 {
     padding-top: 20px;
     color: #950740;
 
     font-style: none;
+}
+
+.middle_box h3 {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .middle_box p {
@@ -54,7 +59,7 @@ body {
 
     background: #1a1a1d;
     border-style: solid;
-    border-color: ##0a0a0a;
+    border-color: #0a0a0a;
     border-width: 2px;
     border-radius: 4px;
 }
