@@ -1,5 +1,5 @@
 body {
-    background-image: linear-gradient(to right, #C365BE, #938ae6);
+    background-image: linear-gradient(to right, #c365be, #938ae6);
 }
 
 
@@ -25,7 +25,8 @@ body {
 }
 
 .middle_box p {
-    padding: 10px;
+    padding: 12%;
+    padding-bottom: 10px;
     padding-top: 0px;
     color: #8056a4;
 }
@@ -50,6 +51,8 @@ body {
     margin-right: 25%;
 
     overflow: hidden;
+    display: flex;
+    justify-content: space-evenly;
 
     background: #f4e2d0;
     border-style: solid;
