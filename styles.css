@@ -12,8 +12,6 @@ body {
 
     text-align: center;
     padding-bottom: 20px;
-    
-    background: #1a1a1d;
 }
 
 .middle_box h1, h2, h3 {
@@ -52,7 +50,6 @@ body {
     display: flex;
     justify-content: space-evenly;
 
-    background: #1a1a1d;
     border-style: solid;
     border-color: #6a1e55;
     border-width: 2px;
