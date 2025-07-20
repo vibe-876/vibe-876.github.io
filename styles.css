@@ -4,14 +4,15 @@ body {
     font-family: "Lucida Console", monospace;
 }
 
-body p {
-}
-
 .topbar {
     background-color: #3b3030;
     overflow: hidden;
     padding: 0px;
-
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    height: 6%;
     color: #fff0d1;
 }
 
@@ -29,7 +30,9 @@ body p {
 }
 
 .sidebar {
-    background-color: #3b3030;
+    background-image: linear-gradient(#3b3030, #664343);
+    top: 6%;
+    z-index: 10;
     height: 100%;
     width: 8%;
     position: fixed;
@@ -55,4 +58,8 @@ body p {
 
 .contents ul {
     list-style-type: circle;
+}
+
+.contents h1 {
+    padding-top: 4%;
 }
