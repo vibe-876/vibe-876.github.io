@@ -1,0 +1,58 @@
+body {
+    margin: 0px;
+    background-color: #fff0d1;
+    font-family: "Lucida Console", monospace;
+}
+
+body p {
+}
+
+.topbar {
+    background-color: #3b3030;
+    overflow: hidden;
+    padding: 0px;
+
+    color: #fff0d1;
+}
+
+.topbar h1 {
+    float: left;
+    margin: 5px;
+    margin-left: 25px;
+}
+
+.topbar h2 {
+    float: right;
+    margin: 5px;
+    margin-right: 20px;
+    text-align: center;
+}
+
+.sidebar {
+    background-color: #3b3030;
+    height: 100%;
+    width: 8%;
+    position: fixed;
+    overflow-x: hidden;
+}
+
+.sidebar a {
+    color: #fff0d1;
+    text-decoration: none;
+    display: block;
+    margin-top: 20px;
+    margin-left: 20%;
+}
+
+.contents {
+    padding-left: 10%;
+    text-color: #795757;
+}
+
+.contents a {
+    color: #664343;
+}
+
+.contents ul {
+    list-style-type: circle;
+}
