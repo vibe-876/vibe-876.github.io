@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2026-02-16 Mon 02:18 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Using Maven</title>
+<meta name="author" content="Cam Ayres (caa52)" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Using Maven</h1>
+<div id="outline-container-orgea48bce" class="outline-2">
+<h2 id="orgea48bce">What is This</h2>
+<div class="outline-text-2" id="text-orgea48bce">
+<p>
+I need to do a group project in Javafor uni, and as a team, we decided on using Maven.
+However, not everyone on the team knows how to use Maven, so I've written this up &#x2013; I hope that it can be useful for you.
+</p>
+</div>
+</div>
+<div id="outline-container-org8850e56" class="outline-2">
+<h2 id="org8850e56">What is Maven</h2>
+<div class="outline-text-2" id="text-org8850e56">
+<p>
+Apache Maven is a build system for (among other languages) Java.
+It describes how the system should be built using <a href="https://www.w3.org/TR/xmlschema-1/">XML</a> (eXtensible Markup Language), as well as any dependencies the project needs, and any plugins Maven should be using.
+This all goes into a file called <code>pom.xml</code>, in the root of your project's directory.
+</p>
+</div>
+</div>
+<div id="outline-container-org7a8a57b" class="outline-2">
+<h2 id="org7a8a57b">A Basic Example</h2>
+<div class="outline-text-2" id="text-org7a8a57b">
+<p>
+Suppose we have some project &#x2013; we may lay out the build file like this.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;com.gpseven&lt;/groupId&gt;
+  &lt;artifactId&gt;GPSeven&lt;/artifactId&gt;
+  &lt;version&gt;0.0.1&lt;/version&gt;
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;configuration&gt;
+          &lt;archive&gt;
+            &lt;manifest&gt;
+              &lt;addClasspath&gt;true&lt;/addClasspath&gt;
+              &lt;mainClass&gt;uk.ac.aber.cs221.group07.Graphics.Main&lt;/mainClass&gt;
+            &lt;/manifest&gt;
+          &lt;/archive&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.openjfx&lt;/groupId&gt;
+        &lt;artifactId&gt;javafx-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;0.0.8&lt;/version&gt;
+        &lt;configuration&gt;
+          &lt;mainClass&gt;uk.ac.aber.cs221.group07.Graphics.Main&lt;/mainClass&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+      &lt;artifactId&gt;junit-jupiter-api&lt;/artifactId&gt;
+      &lt;version&gt;5.2.0&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.openjfx&lt;/groupId&gt;
+      &lt;artifactId&gt;javafx-controls&lt;/artifactId&gt;
+      &lt;version&gt;25.0.2&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/project&gt;
+</pre>
+</div>
+<p>
+Pretty scary right.
+This is the <code>pom.xml</code> file for a project I'm doing at university for a <a href="https://www.aber.ac.uk/en/modules/deptcurrent/CS22120/AB2/">module</a>.
+</p>
+
+<p>
+Notice how we're <i>not</i> specifying where to find the source code, like we would in say, Apache Ant, GNU Makefiles, or a <a href="http://www.catb.org/~esr/jargon/html/P/Perl.html">hacked-together perl scsript</a>.
+Maven goes for <span class="underline">convention over configuration</span>, and defaults to the following structures:
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Directory Name</th>
+<th scope="col" class="org-left">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>./</code></td>
+<td class="org-left">The root of the project, and where <code>pom.xml</code> lives</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>src/main/java/</code></td>
+<td class="org-left">Contains the deliverable Java code</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>src/main/resources/</code></td>
+<td class="org-left">Contains the deliverable resources</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>src/test/java/</code></td>
+<td class="org-left">Contains the tests (Junit tests, in our case)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>src/test/resources/</code></td>
+<td class="org-left">Contains resources for the tests</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+We can then compile our program using the <code>mvn compile</code> command.
+This will &#x2013; if it doesn't already exist &#x2013; create <code>target/</code>, a directory in which all class files go, as well as any jars that may be generated.
+</p>
+</div>
+</div>
+<div id="outline-container-org77da2e6" class="outline-2">
+<h2 id="org77da2e6">Maven Commands</h2>
+<div class="outline-text-2" id="text-org77da2e6">
+<p>
+Maven has many built in commands, and we can add more by using plugins.
+Some of the basic and most useful commands are as follows:
+</p>
+<ul class="org-ul">
+<li><code>mvn compile</code>
+Compiles the source into class files</li>
+<li><code>mvn package</code>
+Compiles the source into a jar file</li>
+<li><code>mvn install</code>
+Install the package in the local Maven repository</li>
+<li><code>mvn clean</code>
+Remove build files from <code>target/</code></li>
+</ul>
+
+<p>
+If you're using IntelliJ, congratulations, you don't really need to use these commands, as it'll be handled by IntelliJ.
+However, if you're using another editor (say, GNU Emacs), then you may need to do this yourself (if you're a fellow Emacs lover, then I'd recommend just using <code>M-x compile</code>, and running Maven commands through that &#x2013; I might write a <a href="https://github.com/magit/transient">transient</a> menu for it at some point).
+We can also add some more commands, using the amazing magic of ✨ <i>plugins</i> ✨.
+</p>
+</div>
+<div id="outline-container-orge93339c" class="outline-3">
+<h3 id="orge93339c">Plugins</h3>
+<div class="outline-text-3" id="text-orge93339c">
+<p>
+I have some projects I have to do for uni, some of which require <a href="https://openjfx.io/">JavaFX</a> (ew).
+To do this, we use a plugin.
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;plugins&gt;
+  &lt;plugin&gt;
+    &lt;groupId&gt;org.openjfx&lt;/groupId&gt;
+    &lt;artifactId&gt;javafx-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;0.0.8&lt;/version&gt;
+    &lt;configuration&gt;
+      &lt;mainClass&gt;io.github.vibe-876.Graphics.Main&lt;/mainClass&gt;
+    &lt;/configuration&gt;
+  &lt;/plugin&gt;
+&lt;/plugins&gt;
+</pre>
+</div>
+<p>
+We can now run <code>mvn javafx:run</code>, and our JavaFX plugin will be started!
+(Okay, technically we also need to include JavaFX as a dependency, but I'm covering that in the next section, not here).
+</p>
+</div>
+</div>
+<div id="outline-container-orgfd166a4" class="outline-3">
+<h3 id="orgfd166a4">Dependencies</h3>
+<div class="outline-text-3" id="text-orgfd166a4">
+<p>
+Suppose I have some project, for which I want to use Junit 5, and Maven.
+But oh no! I can't run that directly through Maven, whatever shall I do :'( !
+Thankfully, dependencies come to the rescue; for our Junit example, we could include something like this
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xml">&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+    &lt;artifactId&gt;junit-jupiter-api&lt;/artifactId&gt;
+    &lt;version&gt;5.2.0&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</pre>
+</div>
+<p>
+We can now run <code>mvn test</code>, and all tests within <code>src/test/java/</code> will be ran.
+</p>
+
+<p>
+If we also want to include, say, JavaFX, we can add that as a dependency too!
+</p>
+<div class="org-src-container">
+<pre class="src src-xml">&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+    &lt;artifactId&gt;junit-jupiter-api&lt;/artifactId&gt;
+    &lt;version&gt;5.2.0&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+  &lt;/dependency&gt;
+
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.openjfx&lt;/groupId&gt;
+    &lt;artifactId&gt;javafx-controls&lt;/artifactId&gt;
+    &lt;version&gt;25.0.2&lt;/version&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</pre>
+</div>
+
+<p>
+Now, when we run <code>mvn javafx:run</code>, the program will be started.
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
