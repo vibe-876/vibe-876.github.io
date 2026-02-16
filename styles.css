@@ -10,3 +10,8 @@ body {
 h1 { text-align: center; }
 a { color: #6d9cbf; }
 ul { list-style-type: circle; }
+
+.org-src-container {
+    background-color: #000000;
+    color: #ffffff;
+}
