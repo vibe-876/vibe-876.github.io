@@ -1,5 +1,5 @@
 #+title: Using Maven
-#+author: Cam Ayres (caa52)
+#+author: Cam A (caa52)
 #+date: 2026-02-16
 
 #+options: toc:nil num:nil tex:imagemagick
