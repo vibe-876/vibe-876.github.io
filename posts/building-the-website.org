@@ -1,0 +1,40 @@
+#+title: A New Build System For This Website
+#+author: Cam A.
+#+date: 2026-04-22
+
+
+My website started with just HTML I wrote, with a bit of CSS.
+But I don't really like HTML, and I do like really GNU Emacs, so I started using Org Mode, exporting each bit manually.
+But I don't really like doing the same thing over and over and over again, so I wrote a bash script to handle it for me.
+
+#+begin_src bash
+  #!/bin/bash
+
+
+  echo "<!DOCTYPE html><head><title>Blog</title><link rel=\"stylesheet\" href=\"styles.css\"><body><h1>Blog Entries</h1><a href=\"index.html\">Back Home</a><ul>" > blog.html
+
+  pages=$(find ./posts -type f -iname \*.org | sort)
+  for page in $pages
+  do
+      echo "Building $page..."
+      pandoc $page -o .$(echo $page | cut -f2 -d'.').html --css="../styles.css" -s
+
+      pagename=.$(echo $page | cut -f2 -d'.').html
+      pagetitle=$(grep "#+title" $page | cut -f2- -d' ' | head -n1)
+      pagedate=$(grep "#+date" $page | cut -f2 -d' ')
+      echo "<li><a href=\"$pagename\">$pagetitle, $pagedate</a></li>" >> blog.html
+  done
+
+  echo "</ul></body>" >> blog.html
+
+
+  pandoc index.org -o index.html --css="styles.css" -s
+#+end_src
+
+It's not the most elegant thing in the word, but it does the trick.
+Besides, bash is just about never elegant anyway, that's what I like about it -- like a more cursed perl.
+
+Maybe now that I just run a script to setup my website, I might even start actually putting something on this blog!
+Might even make an RSS feed too, but not yet...
+
+I also might end up automating the part where I push to Github, but not yet.

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Cam A." />
+  <meta name="dcterms.date" content="2026-04-22" />
+  <title>A New Build System For This Website</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">A New Build System For This Website</h1>
+<p class="author">Cam A.</p>
+<p class="date">2026-04-22</p>
+</header>
+<p>My website started with just HTML I wrote, with a bit of CSS. But I
+don't really like HTML, and I do like really GNU Emacs, so I started
+using Org Mode, exporting each bit manually. But I don't really like
+doing the same thing over and over and over again, so I wrote a bash
+script to handle it for me.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;&lt;!DOCTYPE html&gt;&lt;head&gt;&lt;title&gt;Blog&lt;/title&gt;&lt;link rel=</span><span class="dt">\&quot;</span><span class="st">stylesheet</span><span class="dt">\&quot;</span><span class="st"> href=</span><span class="dt">\&quot;</span><span class="st">styles.css</span><span class="dt">\&quot;</span><span class="st">&gt;&lt;body&gt;&lt;h1&gt;Blog Entries&lt;/h1&gt;&lt;a href=</span><span class="dt">\&quot;</span><span class="st">index.html</span><span class="dt">\&quot;</span><span class="st">&gt;Back Home&lt;/a&gt;&lt;ul&gt;&quot;</span> <span class="op">&gt;</span> blog.html</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="va">pages</span><span class="op">=</span><span class="va">$(</span><span class="fu">find</span> ./posts <span class="at">-type</span> f <span class="at">-iname</span> <span class="dt">\*</span>.org<span class="va">)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> page <span class="kw">in</span> <span class="va">$pages</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">&quot;Building </span><span class="va">$page</span><span class="st">...&quot;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pandoc</span> <span class="va">$page</span> <span class="at">-o</span> .<span class="va">$(</span><span class="bu">echo</span> <span class="va">$page</span> <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f2</span> <span class="at">-d</span><span class="st">&#39;.&#39;</span><span class="va">)</span>.html <span class="at">--css</span><span class="op">=</span><span class="st">&quot;../styles.css&quot;</span> <span class="at">-s</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="va">pagename</span><span class="op">=</span>.<span class="va">$(</span><span class="bu">echo</span> <span class="va">$page</span> <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f2</span> <span class="at">-d</span><span class="st">&#39;.&#39;</span><span class="va">)</span>.html</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="va">pagetitle</span><span class="op">=</span><span class="va">$(</span><span class="fu">grep</span> <span class="st">&quot;#+title&quot;</span> <span class="va">$page</span> <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f2-</span> <span class="at">-d</span><span class="st">&#39; &#39;</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n1</span><span class="va">)</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="va">pagedate</span><span class="op">=</span><span class="va">$(</span><span class="fu">grep</span> <span class="st">&quot;#+date&quot;</span> <span class="va">$page</span> <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f2</span> <span class="at">-d</span><span class="st">&#39; &#39;</span><span class="va">)</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">&quot;&lt;li&gt;&lt;a href=</span><span class="dt">\&quot;</span><span class="va">$pagename</span><span class="dt">\&quot;</span><span class="st">&gt;</span><span class="va">$pagetitle</span><span class="st">, </span><span class="va">$pagedate</span><span class="st">&lt;/a&gt;&lt;/li&gt;&quot;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;&lt;/ul&gt;&lt;/body&gt;&quot;</span> <span class="op">&gt;&gt;</span> blog.html</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc</span> index.org <span class="at">-o</span> index.html <span class="at">--css</span><span class="op">=</span><span class="st">&quot;styles.css&quot;</span> <span class="at">-s</span></span></code></pre></div>
+<p>It's not the most elegant thing in the word, but it does the trick.
+Besides, bash is just about never elegant anyway, that's what I like
+about it – like a more cursed perl.</p>
+<p>Maybe now that I just run a script to setup my website, I might even
+start actually putting something on this blog! Might even make an RSS
+feed too, but not yet…</p>
+<p>I also might end up automating the part where I push to Github, but
+not yet.</p>
+</body>
+</html>
