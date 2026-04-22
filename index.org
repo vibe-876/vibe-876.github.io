@@ -1,0 +1,34 @@
+#+title: Home Page
+#+author: Cam A.
+
+#+options: toc:nil num:nil tex:imagemagick
+#+html_doctype: <!DOCTYPE html>
+#+html_head: <link rel="stylesheet" href="styles.css">
+
+
+Hello, my name's Cam.
+I'm a student at Aberystwyth University interested in (among other things)
+- Programming
+- Mathematics
+- Literature
+- Brewing
+
+With programming, I mainly use GNU Emacs -- I don't really like the idea of a favourite language, but I mainly use and enjoy Haskell, misc lisps, and C.
+I also don't really subscribe to a single paradigm either.
+OOP can be elegant for certain problems (though I am yet to find an OOP language that I can really find elegant, I'd like to try Smalltalk at some point), functional for others, logic for others, it's the horse for the course.
+Some of the programming that I do I put up on [[https://github.com/vibe-876][my Github]], though most of it stays on my local machine.
+
+On the mathematical side, I'm obsessed with mathematical analysis and graph theory.
+Similarly to my opinions on programming languages, I don't really like the divide between pure and applied maths either, it's more about how you approach the problem.
+I feel like everything is either applied, or will be at some point: if category theory can find applications, anything can.
+
+This website is written in org mode, with some CSS on the side, because I don't like writing HTML, controlled by a bash script using pandoc!
+
+If for some reason you want to read about the various things that I do, I have [[file:blog.html][a blog]]!
+
+Some of my friends have websites too (all better than this one), and I think you should check them all out :) .
+- [[https://shaiyaj.github.io][Shaiya]]
+- [[https://amositty.netlify.app][Adam]]
+- [[https://guns.lol/attie][Attie]]
+- [[http://edmil.net/][Edmil]]
+- [[https://lesik.xyz/][Lesik]]

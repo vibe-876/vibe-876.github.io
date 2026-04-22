@@ -1,0 +1,160 @@
+#+title: Using Maven
+#+author: Cam Ayres (caa52)
+#+date: 2026-02-16
+
+#+options: toc:nil num:nil tex:imagemagick
+#+html_doctype: <!DOCTYPE html>
+#+html_head: <link rel="stylesheet" href="../styles.css">
+
+
+* What is This
+I need to do a group project in Javafor uni, and as a team, we decided on using Maven.
+However, not everyone on the team knows how to use Maven, so I've written this up -- I hope that it can be useful for you.
+
+* What is Maven
+Apache Maven is a build system for (among other languages) Java.
+It describes how the system should be built using [[https://www.w3.org/TR/xmlschema-1/][XML]] (eXtensible Markup Language), as well as any dependencies the project needs, and any plugins Maven should be using.
+This all goes into a file called ~pom.xml~, in the root of your project's directory.
+
+* A Basic Example
+Suppose we have some project -- we may lay out the build file like this.
+#+begin_src xml
+  <project xmlns="http://maven.apache.org/POM/4.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+  			     http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.gpseven</groupId>
+    <artifactId>GPSeven</artifactId>
+    <version>0.0.1</version>
+    <build>
+      <plugins>
+        <plugin>
+  	<groupId>org.apache.maven.plugins</groupId>
+  	<artifactId>maven-jar-plugin</artifactId>
+  	<version>3.1.0</version>
+  	<configuration>
+  	  <archive>
+  	    <manifest>
+  	      <addClasspath>true</addClasspath>
+  	      <mainClass>uk.ac.aber.cs221.group07.Graphics.Main</mainClass>
+  	    </manifest>
+  	  </archive>
+  	</configuration>
+        </plugin>
+
+        <plugin>
+  	<groupId>org.openjfx</groupId>
+  	<artifactId>javafx-maven-plugin</artifactId>
+  	<version>0.0.8</version>
+  	<configuration>
+  	  <mainClass>uk.ac.aber.cs221.group07.Graphics.Main</mainClass>
+  	</configuration>
+        </plugin>
+      </plugins>
+    </build>
+
+    <dependencies>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.2.0</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>25.0.2</version>
+      </dependency>
+    </dependencies>
+  </project>
+#+end_src
+Pretty scary right.
+This is the ~pom.xml~ file for a project I'm doing at university for a [[https://www.aber.ac.uk/en/modules/deptcurrent/CS22120/AB2/][module]].
+
+Notice how we're /not/ specifying where to find the source code, like we would in say, Apache Ant, GNU Makefiles, or a [[http://www.catb.org/~esr/jargon/html/P/Perl.html][hacked-together perl scsript]].
+Maven goes for _convention over configuration_, and defaults to the following structures:
+
+| Directory Name        | Purpose                                            |
+|-----------------------+----------------------------------------------------|
+| ~./~                  | The root of the project, and where ~pom.xml~ lives |
+| ~src/main/java/~      | Contains the deliverable Java code                 |
+| ~src/main/resources/~ | Contains the deliverable resources                 |
+| ~src/test/java/~      | Contains the tests (Junit tests, in our case)      |
+| ~src/test/resources/~ | Contains resources for the tests                   |
+
+We can then compile our program using the ~mvn compile~ command.
+This will -- if it doesn't already exist -- create ~target/~, a directory in which all class files go, as well as any jars that may be generated.
+
+* Maven Commands
+Maven has many built in commands, and we can add more by using plugins.
+Some of the basic and most useful commands are as follows:
+- ~mvn compile~
+  Compiles the source into class files
+- ~mvn package~
+  Compiles the source into a jar file
+- ~mvn install~
+  Install the package in the local Maven repository
+- ~mvn clean~
+  Remove build files from ~target/~
+
+If you're using IntelliJ, congratulations, you don't really need to use these commands, as it'll be handled by IntelliJ.
+However, if you're using another editor (say, GNU Emacs), then you may need to do this yourself (if you're a fellow Emacs lover, then I'd recommend just using ~M-x compile~, and running Maven commands through that -- I might write a [[https://github.com/magit/transient][transient]] menu for it at some point).
+We can also add some more commands, using the amazing magic of ✨ /plugins/ ✨.
+
+** Plugins
+I have some projects I have to do for uni, some of which require [[https://openjfx.io/][JavaFX]] (ew).
+To do this, we use a plugin.
+#+begin_src xml
+  <plugins>
+    <plugin>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-maven-plugin</artifactId>
+      <version>0.0.8</version>
+      <configuration>
+        <mainClass>io.github.vibe-876.Graphics.Main</mainClass>
+      </configuration>
+    </plugin>
+  </plugins>
+#+end_src
+We can now run ~mvn javafx:run~, and our JavaFX plugin will be started!
+(Okay, technically we also need to include JavaFX as a dependency, but I'm covering that in the next section, not here).
+
+
+** Dependencies
+Suppose I have some project, for which I want to use Junit 5, and Maven.
+But oh no! I can't run that directly through Maven, whatever shall I do :'( !
+Thankfully, dependencies come to the rescue; for our Junit example, we could include something like this
+
+#+begin_src xml
+  <dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.2.0</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+#+end_src
+We can now run ~mvn test~, and all tests within ~src/test/java/~ will be ran.
+
+If we also want to include, say, JavaFX, we can add that as a dependency too!
+#+begin_src xml
+  <dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.2.0</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>25.0.2</version>
+    </dependency>
+  </dependencies>
+#+end_src
+
+Now, when we run ~mvn javafx:run~, the program will be started.
