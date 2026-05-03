@@ -8,8 +8,8 @@
 (defun cam/build-website ()
   (interactive)
   (cam/build-website-directory "." "styles.css")
-  (cam/build-website-directory "./posts" "../styles.css")
-  (cam/build-website-posts-page "./posts"))
+  (cam/build-website-directory "posts" "../styles.css")
+  (cam/build-website-posts-page "posts"))
 
 (defun cam/build-website-posts-page (post-directory)
   "Constructs a HTML page that lists all blog entries, in the order
@@ -40,15 +40,11 @@ that they were written."
 			 nil plist-text)
     plist-text))
 
-(defun cam/build-website-directory (directory css-file &optional files-to-ignore)
+(defun cam/build-website-directory (directory css-file)
   "Converts all Org files to HTML, using pandoc. DIRECTORY is
 the directory containing the files to be converted, and CSS-FILE
 is the file containing the CSS they should be using."
-  (let ((org-source-files (if files-to-ignore
-			      (mapcar '(lambda (file)
-					 (remove file (directory-files directory t "\\.org$")))
-				      files-to-ignore)
-			    (directory-files directory t "\\.org$"))))
+  (let ((org-source-files (directory-files directory t "\\.org$")))
     (mapcar 'cam/build-page org-source-files)))
 
 (defun cam/build-page (file-name)
@@ -58,4 +54,5 @@ pandoc."
 			 file-name
 			 " -o "
 			 (file-name-with-extension file-name ".html")
-			 " --css=\"" css-file "\" -s")))
+			 " --css=\"" css-file "\" -s "
+			 "--syntax-highlighting=\"espresso\"")))
