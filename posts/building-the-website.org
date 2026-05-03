@@ -2,6 +2,8 @@
 #+author: Cam A.
 #+date: 2026-04-22
 
+#+html_head: <link rel="stylesheet" href="../styles.css">
+
 
 My website started with just HTML I wrote, with a bit of CSS.
 But I don't really like HTML, and I do like really GNU Emacs, so I started using Org Mode, exporting each bit manually.
