@@ -1,0 +1,39 @@
+#+title: Minecraft Modding on 1.8.9: Setting up Java
+#+author: Cam A.
+#+date: 2026-04-29
+
+#+html_head: <link rel="stylesheet" href="../styles.css">
+
+
+* Getting Started
+So you want to program a Minecraft mod for 1.8.9.
+It's a niche genre of person who wants to do that, I can respect it.
+If you only came here for source code examples, they can be found on my Github here (fix me before posting).
+
+The first thing you're going to need is a JDK, or Java Development Toolkit, and for 1.8.9, you'll need Java 8 specifically.
+I personally use OpenJDK, which can be downloaded [[https://github.com/adoptium/temurin8-binaries/releases/tag/jdk8u482-b08][here]], and you'll want the version starting with ~OpenJDK8U-jdk_<your-cpu-arch>_<your-OS>~.
+For example, if you're on windows, with a 64 bit x64 CPU, then you download ~OpenJDK8U-jdk_x64_windows_hotspot_8u482b08.msi~ (if you don't know which is you, it's probably this one).
+After getting that, you'll also need the 1.8.9 [[https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html][MDK]] (Minecraft Development Toolkit), [[https://git-scm.com/install//windows][git]], and [[https://eclipseide.org/][Eclipse IDE]] (you can use whatever IDE you want, but this guide will be in Eclipse, because they gave me a pen at FOSDEM).
+And if you don't already have a Github account, now would probably be the time to make one (much like the editor, it doesn't have to be Github, but I'll be focusing on it).
+
+After going through the Java installer, go into powershell, and go to wherever you downloaded the MDK zip to.
+You can either do this by opening the folder in File Explorer, right clicking, and clicking open in terminal, or by using the ~cd~ command, which would look something like this (~cd~ stands for "change directory"; directory is just another name for folder).
+#+begin_src shell
+  cd '\.Downloads\'
+#+end_src
+
+Then, create a new directory called ~minecraft-forge-1.8.9~, move the MDK zip file into it, and then unzip it.
+Again, you can do this with the File Explorer, or with a command.
+#+begin_src shell
+  unzip forge-1.8.9-11.15.1.2318-1.8.9-mdk.zip
+#+end_src
+
+Now, simply run ~.\gradlew.bat runClient~, and modded Minecraft will start (note that it might take a while trying to download things).
+Granted, there are barely any running in it, but we'll fix that soon enough.
+
+* What's That Gradlew.bat thing?
+~gradlew.bat~ is a little program that controls something called [[https://gradle.org/][Gradle]].
+Gradle is a build system, which is a piece of software that helps us compile and run code.
+Some projects have thousands of files, and it would be a pain to compile each of those by hand, so these programs do it for us.
+
+* Setting up Eclipse

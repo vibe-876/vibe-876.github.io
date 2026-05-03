@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Cam A." />
+  <meta name="dcterms.date" content="2026-04-29" />
+  <title>Minecraft Modding on 1.8.9: Setting up Java</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Minecraft Modding on 1.8.9: Setting up Java</h1>
+<p class="author">Cam A.</p>
+<p class="date">2026-04-29</p>
+</header>
+<h1 id="getting-started">Getting Started</h1>
+<p>So you want to program a Minecraft mod for 1.8.9. It's a niche genre
+of person who wants to do that, I can respect it. If you only came here
+for source code examples, they can be found on my Github here (fix me
+before posting).</p>
+<p>The first thing you're going to need is a JDK, or Java Development
+Toolkit, and for 1.8.9, you'll need Java 8 specifically. I personally
+use OpenJDK, which can be downloaded <a
+href="https://github.com/adoptium/temurin8-binaries/releases/tag/jdk8u482-b08">here</a>,
+and you'll want the version starting with
+<code>OpenJDK8U-jdk_&lt;your-cpu-arch&gt;_&lt;your-OS&gt;</code>. For
+example, if you're on windows, with a 64 bit x64 CPU, then you download
+<code>OpenJDK8U-jdk_x64_windows_hotspot_8u482b08.msi</code> (if you
+don't know which is you, it's probably this one). After getting that,
+you'll also need the 1.8.9 <a
+href="https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html">MDK</a>
+(Minecraft Development Toolkit), <a
+href="https://git-scm.com/install//windows">git</a>, and <a
+href="https://eclipseide.org/">Eclipse IDE</a> (you can use whatever IDE
+you want, but this guide will be in Eclipse, because they gave me a pen
+at FOSDEM). And if you don't already have a Github account, now would
+probably be the time to make one (much like the editor, it doesn't have
+to be Github, but I'll be focusing on it).</p>
+<p>After going through the Java installer, go into powershell, and go to
+wherever you downloaded the MDK zip to. You can either do this by
+opening the folder in File Explorer, right clicking, and clicking open
+in terminal, or by using the <code>cd</code> command, which would look
+something like this (<code>cd</code> stands for "change directory";
+directory is just another name for folder).</p>
+<pre class="shell"><code>cd &#39;\.Downloads\&#39;
+</code></pre>
+<p>Then, create a new directory called
+<code>minecraft-forge-1.8.9</code>, move the MDK zip file into it, and
+then unzip it. Again, you can do this with the File Explorer, or with a
+command.</p>
+<pre class="shell"><code>unzip forge-1.8.9-11.15.1.2318-1.8.9-mdk.zip
+</code></pre>
+<p>Now, simply run <code>.\gradlew.bat runClient</code>, and modded
+Minecraft will start (note that it might take a while trying to download
+things). Granted, there are barely any running in it, but we'll fix that
+soon enough.</p>
+<h1 id="whats-that-gradlew.bat-thing">What's That Gradlew.bat
+thing?</h1>
+<p><code>gradlew.bat</code> is a little program that controls something
+called <a href="https://gradle.org/">Gradle</a>. Gradle is a build
+system, which is a piece of software that helps us compile and run code.
+Some projects have thousands of files, and it would be a pain to compile
+each of those by hand, so these programs do it for us.</p>
+<h1 id="setting-up-eclipse">Setting up Eclipse</h1>
+</body>
+</html>
