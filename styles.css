@@ -1,12 +1,12 @@
 body {
     font-family: "Lucida Console", monospace;
-    color: #afc7d6;
-    background-color: #203548;
+    color: #f5f5d3;
+    background-color: #33352c;
     margin-left: 20%;
     margin-right: 20%;
 }
 
 h1, .author, .date { text-align: center; }
-a { color: #6d9cbf; }
+a { color: #798262; }
 ul { list-style-type: circle; }
 header { margin-bottom: 100px; }
