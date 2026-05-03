@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0"><channel><item><title>A New Build System For This Website</title><link>https://vibe-876.github.io/posts/building-the-website.html</link><description>>:3</description><content><p>My website started with just HTML I wrote, with a bit of CSS. But I
+don't really like HTML, and I do like really GNU Emacs, so I started
+using Org Mode, exporting each bit manually. But I don't really like
+doing the same thing over and over and over again, so I wrote a bash
+script to handle it for me.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;&lt;!DOCTYPE html&gt;&lt;head&gt;&lt;title&gt;Blog&lt;/title&gt;&lt;link rel=</span><span class="dt">\&quot;</span><span class="st">stylesheet</span><span class="dt">\&quot;</span><span class="st"> href=</span><span class="dt">\&quot;</span><span class="st">styles.css</span><span class="dt">\&quot;</span><span class="st">&gt;&lt;body&gt;&lt;h1&gt;Blog Entries&lt;/h1&gt;&lt;a href=</span><span class="dt">\&quot;</span><span class="st">index.html</span><span class="dt">\&quot;</span><span class="st">&gt;Back Home&lt;/a&gt;&lt;ul&gt;&quot;</span> <span class="op">&gt;</span> blog.html</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="va">pages</span><span class="op">=</span><span class="va">$(</span><span class="fu">find</span> ./posts <span class="at">-type</span> f <span class="at">-iname</span> <span class="dt">\*</span>.org <span class="kw">|</span> <span class="fu">sort</span><span class="va">)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> page <span class="kw">in</span> <span class="va">$pages</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">&quot;Building </span><span class="va">$page</span><span class="st">...&quot;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pandoc</span> <span class="va">$page</span> <span class="at">-o</span> .<span class="va">$(</span><span class="bu">echo</span> <span class="va">$page</span> <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f2</span> <span class="at">-d</span><span class="st">&#39;.&#39;</span><span class="va">)</span>.html <span class="at">--css</span><span class="op">=</span><span class="st">&quot;../styles.css&quot;</span> <span class="at">-s</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="va">pagename</span><span class="op">=</span>.<span class="va">$(</span><span class="bu">echo</span> <span class="va">$page</span> <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f2</span> <span class="at">-d</span><span class="st">&#39;.&#39;</span><span class="va">)</span>.html</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="va">pagetitle</span><span class="op">=</span><span class="va">$(</span><span class="fu">grep</span> <span class="st">&quot;#+title&quot;</span> <span class="va">$page</span> <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f2-</span> <span class="at">-d</span><span class="st">&#39; &#39;</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n1</span><span class="va">)</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="va">pagedate</span><span class="op">=</span><span class="va">$(</span><span class="fu">grep</span> <span class="st">&quot;#+date&quot;</span> <span class="va">$page</span> <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f2</span> <span class="at">-d</span><span class="st">&#39; &#39;</span><span class="va">)</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">&quot;&lt;li&gt;&lt;a href=</span><span class="dt">\&quot;</span><span class="va">$pagename</span><span class="dt">\&quot;</span><span class="st">&gt;</span><span class="va">$pagetitle</span><span class="st">, </span><span class="va">$pagedate</span><span class="st">&lt;/a&gt;&lt;/li&gt;&quot;</span> <span class="op">&gt;&gt;</span> blog.html</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;&lt;/ul&gt;&lt;/body&gt;&quot;</span> <span class="op">&gt;&gt;</span> blog.html</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc</span> index.org <span class="at">-o</span> index.html <span class="at">--css</span><span class="op">=</span><span class="st">&quot;styles.css&quot;</span> <span class="at">-s</span></span></code></pre></div>
+<p>It's not the most elegant thing in the word, but it does the trick.
+Besides, bash is just about never elegant anyway, that's what I like
+about it – like a more cursed perl.</p>
+<p>Maybe now that I just run a script to setup my website, I might even
+start actually putting something on this blog! Might even make an RSS
+feed too, but not yet…</p>
+<p>I also might end up automating the part where I push to Github, but
+not yet.</p>
+</content></item><item><title>Using Maven</title><link>https://vibe-876.github.io/posts/maven-guide.html</link><description>>:3</description><content><h1 id="what-is-this">What is This</h1>
+<p>I need to do a group project in Javafor uni, and as a team, we
+decided on using Maven. However, not everyone on the team knows how to
+use Maven, so I've written this up – I hope that it can be useful for
+you.</p>
+<h1 id="what-is-maven">What is Maven</h1>
+<p>Apache Maven is a build system for (among other languages) Java. It
+describes how the system should be built using <a
+href="https://www.w3.org/TR/xmlschema-1/">XML</a> (eXtensible Markup
+Language), as well as any dependencies the project needs, and any
+plugins Maven should be using. This all goes into a file called
+<code>pom.xml</code>, in the root of your project's directory.</p>
+<h1 id="a-basic-example">A Basic Example</h1>
+<p>Suppose we have some project – we may lay out the build file like
+this.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">project</span> <span class="ot">xmlns=</span><span class="st">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>         <span class="ot">xmlns:xsi=</span><span class="st">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>         <span class="ot">xsi:schemaLocation=</span><span class="st">&quot;http://maven.apache.org/POM/4.0.0</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">               http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">modelVersion</span>&gt;4.0.0&lt;/<span class="kw">modelVersion</span>&gt;</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">groupId</span>&gt;com.gpseven&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">artifactId</span>&gt;GPSeven&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">version</span>&gt;0.0.1&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">build</span>&gt;</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">plugins</span>&gt;</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">plugin</span>&gt;</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">groupId</span>&gt;org.apache.maven.plugins&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">artifactId</span>&gt;maven-jar-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">version</span>&gt;3.1.0&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">configuration</span>&gt;</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">archive</span>&gt;</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">manifest</span>&gt;</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">addClasspath</span>&gt;true&lt;/<span class="kw">addClasspath</span>&gt;</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        &lt;<span class="kw">mainClass</span>&gt;uk.ac.aber.cs221.group07.Graphics.Main&lt;/<span class="kw">mainClass</span>&gt;</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">manifest</span>&gt;</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">archive</span>&gt;</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">configuration</span>&gt;</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">plugin</span>&gt;</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">plugin</span>&gt;</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">groupId</span>&gt;org.openjfx&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">artifactId</span>&gt;javafx-maven-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">version</span>&gt;0.0.8&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">configuration</span>&gt;</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">mainClass</span>&gt;uk.ac.aber.cs221.group07.Graphics.Main&lt;/<span class="kw">mainClass</span>&gt;</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">configuration</span>&gt;</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>      &lt;/<span class="kw">plugin</span>&gt;</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">plugins</span>&gt;</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">build</span>&gt;</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">dependencies</span>&gt;</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">groupId</span>&gt;org.junit.jupiter&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">artifactId</span>&gt;junit-jupiter-api&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">version</span>&gt;5.2.0&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">scope</span>&gt;test&lt;/<span class="kw">scope</span>&gt;</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">groupId</span>&gt;org.openjfx&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">artifactId</span>&gt;javafx-controls&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">version</span>&gt;25.0.2&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">dependencies</span>&gt;</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">project</span>&gt;</span></code></pre></div>
+<p>Pretty scary right. This is the <code>pom.xml</code> file for a
+project I'm doing at university for a <a
+href="https://www.aber.ac.uk/en/modules/deptcurrent/CS22120/AB2/">module</a>.</p>
+<p>Notice how we're <em>not</em> specifying where to find the source
+code, like we would in say, Apache Ant, GNU Makefiles, or a <a
+href="http://www.catb.org/~esr/jargon/html/P/Perl.html">hacked-together
+perl scsript</a>. Maven goes for <u>convention over configuration</u>,
+and defaults to the following structures:</p>
+<table>
+<thead>
+<tr>
+<th>Directory Name</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>./</code></td>
+<td>The root of the project, and where <code>pom.xml</code> lives</td>
+</tr>
+<tr>
+<td><code>src/main/java/</code></td>
+<td>Contains the deliverable Java code</td>
+</tr>
+<tr>
+<td><code>src/main/resources/</code></td>
+<td>Contains the deliverable resources</td>
+</tr>
+<tr>
+<td><code>src/test/java/</code></td>
+<td>Contains the tests (Junit tests, in our case)</td>
+</tr>
+<tr>
+<td><code>src/test/resources/</code></td>
+<td>Contains resources for the tests</td>
+</tr>
+</tbody>
+</table>
+<p>We can then compile our program using the <code>mvn compile</code>
+command. This will – if it doesn't already exist – create
+<code>target/</code>, a directory in which all class files go, as well
+as any jars that may be generated.</p>
+<h1 id="maven-commands">Maven Commands</h1>
+<p>Maven has many built in commands, and we can add more by using
+plugins. Some of the basic and most useful commands are as follows:</p>
+<ul>
+<li><code>mvn compile</code> Compiles the source into class files</li>
+<li><code>mvn package</code> Compiles the source into a jar file</li>
+<li><code>mvn install</code> Install the package in the local Maven
+repository</li>
+<li><code>mvn clean</code> Remove build files from
+<code>target/</code></li>
+</ul>
+<p>If you're using IntelliJ, congratulations, you don't really need to
+use these commands, as it'll be handled by IntelliJ. However, if you're
+using another editor (say, GNU Emacs), then you may need to do this
+yourself (if you're a fellow Emacs lover, then I'd recommend just using
+<code>M-x compile</code>, and running Maven commands through that – I
+might write a <a href="https://github.com/magit/transient">transient</a>
+menu for it at some point). We can also add some more commands, using
+the amazing magic of ✨ <em>plugins</em> ✨.</p>
+<h2 id="plugins">Plugins</h2>
+<p>I have some projects I have to do for uni, some of which require <a
+href="https://openjfx.io/">JavaFX</a> (ew). To do this, we use a
+plugin.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">plugins</span>&gt;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">plugin</span>&gt;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">groupId</span>&gt;org.openjfx&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">artifactId</span>&gt;javafx-maven-plugin&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">version</span>&gt;0.0.8&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">configuration</span>&gt;</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      &lt;<span class="kw">mainClass</span>&gt;io.github.vibe-876.Graphics.Main&lt;/<span class="kw">mainClass</span>&gt;</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    &lt;/<span class="kw">configuration</span>&gt;</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">plugin</span>&gt;</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">plugins</span>&gt;</span></code></pre></div>
+<p>We can now run <code>mvn javafx:run</code>, and our JavaFX plugin
+will be started! (Okay, technically we also need to include JavaFX as a
+dependency, but I'm covering that in the next section, not here).</p>
+<h2 id="dependencies">Dependencies</h2>
+<p>Suppose I have some project, for which I want to use Junit 5, and
+Maven. But oh no! I can't run that directly through Maven, whatever
+shall I do :'( ! Thankfully, dependencies come to the rescue; for our
+Junit example, we could include something like this</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dependencies</span>&gt;</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">groupId</span>&gt;org.junit.jupiter&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">artifactId</span>&gt;junit-jupiter-api&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">version</span>&gt;5.2.0&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">scope</span>&gt;test&lt;/<span class="kw">scope</span>&gt;</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">dependencies</span>&gt;</span></code></pre></div>
+<p>We can now run <code>mvn test</code>, and all tests within
+<code>src/test/java/</code> will be ran.</p>
+<p>If we also want to include, say, JavaFX, we can add that as a
+dependency too!</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">dependencies</span>&gt;</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">groupId</span>&gt;org.junit.jupiter&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">artifactId</span>&gt;junit-jupiter-api&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">version</span>&gt;5.2.0&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">scope</span>&gt;test&lt;/<span class="kw">scope</span>&gt;</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  &lt;<span class="kw">dependency</span>&gt;</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">groupId</span>&gt;org.openjfx&lt;/<span class="kw">groupId</span>&gt;</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">artifactId</span>&gt;javafx-controls&lt;/<span class="kw">artifactId</span>&gt;</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    &lt;<span class="kw">version</span>&gt;25.0.2&lt;/<span class="kw">version</span>&gt;</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  &lt;/<span class="kw">dependency</span>&gt;</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">dependencies</span>&gt;</span></code></pre></div>
+<p>Now, when we run <code>mvn javafx:run</code>, the program will be
+started.</p>
+</content></item><item><title>Minecraft Modding on 1.8.9: Setting up Java</title><link>https://vibe-876.github.io/posts/setting-up-java.html</link><description>>:3</description><content><h1 id="getting-started">Getting Started</h1>
+<p>So you want to program a Minecraft mod for 1.8.9. It's a niche genre
+of person who wants to do that, I can respect it. If you only came here
+for source code examples, they can be found on my Github here (fix me
+before posting).</p>
+<p>The first thing you're going to need is a JDK, or Java Development
+Toolkit, and for 1.8.9, you'll need Java 8 specifically. I personally
+use OpenJDK, which can be downloaded <a
+href="https://github.com/adoptium/temurin8-binaries/releases/tag/jdk8u482-b08">here</a>,
+and you'll want the version starting with
+<code>OpenJDK8U-jdk_&lt;your-cpu-arch&gt;_&lt;your-OS&gt;</code>. For
+example, if you're on windows, with a 64 bit x64 CPU, then you download
+<code>OpenJDK8U-jdk_x64_windows_hotspot_8u482b08.msi</code> (if you
+don't know which is you, it's probably this one). After getting that,
+you'll also need the 1.8.9 <a
+href="https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html">MDK</a>
+(Minecraft Development Toolkit), <a
+href="https://git-scm.com/install//windows">git</a>, and <a
+href="https://eclipseide.org/">Eclipse IDE</a> (you can use whatever IDE
+you want, but this guide will be in Eclipse, because they gave me a pen
+at FOSDEM). And if you don't already have a Github account, now would
+probably be the time to make one (much like the editor, it doesn't have
+to be Github, but I'll be focusing on it).</p>
+<p>After going through the Java installer, go into powershell, and go to
+wherever you downloaded the MDK zip to. You can either do this by
+opening the folder in File Explorer, right clicking, and clicking open
+in terminal, or by using the <code>cd</code> command, which would look
+something like this (<code>cd</code> stands for "change directory";
+directory is just another name for folder).</p>
+<pre class="shell"><code>cd &#39;\.Downloads\&#39;
+</code></pre>
+<p>Then, create a new directory called
+<code>minecraft-forge-1.8.9</code>, move the MDK zip file into it, and
+then unzip it. Again, you can do this with the File Explorer, or with a
+command.</p>
+<pre class="shell"><code>unzip forge-1.8.9-11.15.1.2318-1.8.9-mdk.zip
+</code></pre>
+<p>Now, simply run <code>.\gradlew.bat runClient</code>, and modded
+Minecraft will start (note that it might take a while trying to download
+things). Granted, there are barely any running in it, but we'll fix that
+soon enough.</p>
+<h1 id="whats-that-gradlew.bat-thing">What's That Gradlew.bat
+thing?</h1>
+<p><code>gradlew.bat</code> is a little program that controls something
+called <a href="https://gradle.org/">Gradle</a>. Gradle is a build
+system, which is a piece of software that helps us compile and run code.
+Some projects have thousands of files, and it would be a pain to compile
+each of those by hand, so these programs do it for us.</p>
+<h1 id="setting-up-eclipse">Setting up Eclipse</h1>
+</content></item></channel></rss>
