@@ -22,7 +22,7 @@ On the mathematical side, I'm obsessed with mathematical analysis and graph theo
 Similarly to my opinions on programming languages, I don't really like the divide between pure and applied maths either, it's more about how you approach the problem.
 I feel like everything is either applied, or will be at some point: if category theory can find applications, anything can.
 
-This website is written in org mode, with some CSS on the side, because I don't like writing HTML, controlled by a [[https://github.com/vibe-876/vibe-876.github.io/blob/master/make.sh][bash script using pandoc]]!
+This website is written in org mode, with some CSS on the side, because I don't like writing HTML, controlled by a [[https://github.com/vibe-876/vibe-876.github.io/blob/master/make.el][some Emacs Lisp]]!
 
 If for some reason you want to read about the various things that I do, I have [[file:blog.html][a blog]]!
 
