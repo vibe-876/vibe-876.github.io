@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0"><channel><item><title>A New Build System For This Website</title><link>https://vibe-876.github.io/posts/building-the-website.html</link><description>>:3</description><content><p>My website started with just HTML I wrote, with a bit of CSS. But I
+<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0"><channel><item><title>A New Build System For This Website</title><link>https://vibe-876.github.io/posts/building-the-website.html</link><description>>:3</description><content type="html"><p>My website started with just HTML I wrote, with a bit of CSS. But I
 don't really like HTML, and I do like really GNU Emacs, so I started
 using Org Mode, exporting each bit manually. But I don't really like
 doing the same thing over and over and over again, so I wrote a bash
@@ -33,7 +33,7 @@ start actually putting something on this blog! Might even make an RSS
 feed too, but not yet…</p>
 <p>I also might end up automating the part where I push to Github, but
 not yet.</p>
-</content></item><item><title>Using Maven</title><link>https://vibe-876.github.io/posts/maven-guide.html</link><description>>:3</description><content><h1 id="what-is-this">What is This</h1>
+</content></item><item><title>Using Maven</title><link>https://vibe-876.github.io/posts/maven-guide.html</link><description>>:3</description><content type="html"><h1 id="what-is-this">What is This</h1>
 <p>I need to do a group project in Javafor uni, and as a team, we
 decided on using Maven. However, not everyone on the team knows how to
 use Maven, so I've written this up – I hope that it can be useful for
@@ -213,7 +213,7 @@ class="sourceCode xml"><code class="sourceCode xml"><span id="cb4-1"><a href="#c
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">dependencies</span>&gt;</span></code></pre></div>
 <p>Now, when we run <code>mvn javafx:run</code>, the program will be
 started.</p>
-</content></item><item><title>Minecraft Modding on 1.8.9: Setting up Java</title><link>https://vibe-876.github.io/posts/setting-up-java.html</link><description>>:3</description><content><h1 id="getting-started">Getting Started</h1>
+</content></item><item><title>Minecraft Modding on 1.8.9: Setting up Java</title><link>https://vibe-876.github.io/posts/setting-up-java.html</link><description>>:3</description><content type="html"><h1 id="getting-started">Getting Started</h1>
 <p>So you want to program a Minecraft mod for 1.8.9. It's a niche genre
 of person who wants to do that, I can respect it. If you only came here
 for source code examples, they can be found on my Github here (fix me
