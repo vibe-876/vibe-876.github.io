@@ -37,3 +37,114 @@ Gradle is a build system, which is a piece of software that helps us compile and
 Some projects have thousands of files, and it would be a pain to compile each of those by hand, so these programs do it for us.
 
 * Setting up Eclipse
+Open eclipse, and select wherever it is that you extracted the forge zip to as the project root.
+To ensure we're using the correct version of Java (OpenJDK 8), go to Window, then select Preferences.
+From there, go select Java, then Installed JREs (Java Runtime Environments), and select Java 8.
+If Java 8 isn't there, then something has gone wrong, and you should fix that before going any further.
+
+* A Taste of Java 8
+Create a new folder, and put two Java files into it -- ~Main.java~, and ~Student.java~, and then write the following into them.
+For ~Student.java~, write
+#+begin_src java
+  /**
+   ,* A basic call for describing a student at a school.
+   ,*
+   ,* @author Cam A.
+   ,* @version 1.0
+   ,*/
+  public class Student {
+      private String firstName;
+      private String lastName;
+      private int age;
+
+      /**
+       ,* Constructs a new Student object.
+       ,*
+       ,* @param firstName the first name of the student
+       ,* @param lastName the last name of the student
+       ,* @param age the age of the student
+       ,*/
+      public Student(String firstName, String lastName, int age) {
+  	this.firstName = firstName;
+  	this.lastName = lastName;
+  	this.age = age;
+      }
+
+      /**
+       ,* Getter function for the students name. Combines the firstName
+       ,* and lastName private variables.
+       ,*
+       ,* @return the full name of the student
+       ,*/
+      public String getName() {
+  	return(this.firstName + " " + this.lastName);
+      }
+
+      /**
+       ,* Getter function for the students age, int years.
+       ,*
+       ,* @return the age of the student
+       ,*/
+      public int getAge() {
+  	return(this.age);
+      }
+
+      /**
+       ,* Increases the students age in years.
+       ,*
+       ,* @param howManyYearsOlder how many years older the student now is
+       ,*/
+      public void gottenOlder(int howManyYearsOlder) {
+  	this.age = this.age + howManyYearsOlder;
+      }
+
+      /**
+       ,* Checks if the student is 18 yet.
+       ,*
+       ,* @return true if the student is older than 18, and false otherwise
+       ,*/
+      public boolean isStudentEighteen() {
+  	if(this.age < 18) {
+  	    return(false);
+  	} else {
+  	    return(true);
+  	}
+      }
+  }
+#+end_src
+
+And for ~Main.java~, write
+#+begin_src java
+  /**
+   ,* Main class.
+   ,*
+   ,* @author Cam A.
+   ,* @version 1.0
+   ,*/
+  public class Main {
+      /**
+       ,* Adds a new student. Warning: will crash if less than three arguments
+       ,* are provided.
+       ,*
+       ,* @param args the students first name, followed by their last name, followed by their age
+       ,* @see Student
+       ,*/
+      public static void main(String[] args) {
+  	Student newStudent = new Student(args[0],
+  				 args[1],
+  				 Integer.parseInt(args[2]));
+
+  	System.out.println("Student " + newStudent.getName() + " is " + newStudent.getAge() + " years old.");
+      }
+  }
+#+end_src
+
+Now, you can run ~javac Main.java Student.java~, and then ~java Main Gerard Way 49~ (yes I was listening to MCR while writing this, how could you tell?) in the Eclipse terminal (after opening this as a project, of course).
+What happens if you don't include any arguments to ~Main~?
+
+* Exercises
+1. Make it so the program doesn't crash when you don't give it good arguments.
+   This is sometimes known as defensive programming.
+2. Add your own JavaDoc (the special comments) for the things you've edited, and give yourself credit with an ~@author~ tag.
+3. Add a new feature to ~Student.java~, that changes the student's name.
+   After this, try changing ~Main.java~ so that the fourth argument is the new name of the student.
