@@ -1,0 +1,52 @@
+#+title: Minecraft Modding on 1.8.9: First Fun With Forge
+#+author: Cam A.
+#+date: 2026-05-06
+
+
+* Getting Forge Started
+Go over to where your Forge zip was unziped, and open ~src/main/java/com/example/examplemod/ExampleMod.java~.
+Now, change ~MODID~ to whatever you want your mod to be called
+#+begin_src java
+  public static final String MODID = "Cam's Mod";
+#+end_src
+
+And then set the version number to ~"0.1"~.
+#+begin_src java
+  public static final String VERSION = "0.1";
+#+end_src
+
+And from the root of your project (the same folder as ~gradlew.bat~), and run ~.\gradlew.bat runClient~.
+If you've done everything right, then this'll (after a bit of loading) start Minecraft 1.8.9 with forge, and if you look at the mods section, you should see yours!
+And if you now click on it, you'll see that there's no description; lets change that.
+
+Go to ~src/main/resources/mcmod.info~, and change it to this.
+#+begin_src javascript
+  [{
+      "modid": "Cam's Mod", // Note that this has to match whatever you set MODID to in the Java file.
+      "name": "A very cool mod",
+      "description": "Does funky stuff.",
+      "version": "0.1", // Note that this has to match whatever you set VERSION to in the Java file.
+      "mcversion": "1.10.2",
+      "logoFile": "assets/examplemod/textures/logo.png",
+      "url": "github.com/vibe-876/minecraft-mod", // I haven't made this yet, so don't bother trying.
+      "updateJSON": "minecraftforge.net/versions.json",
+      "authorList": ["Cam A."],
+      "credits": "This wouldn't have been possible without the Forge documentation, minecraftforum.net, and whoever discovered caffeine."
+  }]
+#+end_src
+
+And now launch the game again, and it should show up with that description when you select it in the mod menu!
+This is in a format called JSON (JavaScript Object Notation), which is common among the programming industry (along with its competitors, XML, and [[https://en.wikipedia.org/wiki/S-expression][Sexps]]).
+
+* Getting to Know Gradle
+We discussed Gradle a bit in [[file:setting-up-java.html][the last entry]], but we didn't go into too much detail.
+As mentioned last time, Gradle automates compiling all of the code, and it's not just used in Minecraft, but [[https://enlyft.com/tech/products/gradle][all across the programming industry]].
+
+As it turns out, there exists other Gradle commands we can run as well (who'd of thought...)
+- ~\.gradlew test~ will run all of the unit tests (this will be discussed further in a later entry).
+- ~\.gradlew runServer~ will start a modded Minecraft server.
+- ~\.gradlew help~ will tell you all of the other commands available.
+
+Now you might be wondering why the command is ~gradlew~, when the program is called Gradle.
+This is because Gradle creates a wrapper script (a script to run itself), that makes sure all of the necessary programs are installed to the correct version, and that Gradle is being used properly.
+You can of course, just use Gradle directly (say, running ~gradle runClient~), but this isn't recommended, and might not work as expected due to versioning issues.

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Cam A." />
+  <meta name="dcterms.date" content="2026-05-06" />
+  <title>Minecraft Modding on 1.8.9: First Fun With Forge</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; } /* Alert */
+    code span.an { color: #008000; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #0000ff; } /* ControlFlow */
+    code span.ch { color: #008080; } /* Char */
+    code span.cn { } /* Constant */
+    code span.co { color: #008000; } /* Comment */
+    code span.cv { color: #008000; } /* CommentVar */
+    code span.do { color: #008000; } /* Documentation */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.im { } /* Import */
+    code span.in { color: #008000; } /* Information */
+    code span.kw { color: #0000ff; } /* Keyword */
+    code span.op { } /* Operator */
+    code span.ot { color: #ff4000; } /* Other */
+    code span.pp { color: #ff4000; } /* Preprocessor */
+    code span.sc { color: #008080; } /* SpecialChar */
+    code span.ss { color: #008080; } /* SpecialString */
+    code span.st { color: #008080; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #008080; } /* VerbatimString */
+    code span.wa { color: #008000; font-weight: bold; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Minecraft Modding on 1.8.9: First Fun With Forge</h1>
+<p class="author">Cam A.</p>
+<p class="date">2026-05-06</p>
+</header>
+<h1 id="getting-forge-started">Getting Forge Started</h1>
+<p>Go over to where your Forge zip was unziped, and open
+<code>src/main/java/com/example/examplemod/ExampleMod.java</code>. Now,
+change <code>MODID</code> to whatever you want your mod to be called</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">String</span> MODID <span class="op">=</span> <span class="st">&quot;Cam&#39;s Mod&quot;</span><span class="op">;</span></span></code></pre></div>
+<p>And then set the version number to <code>"0.1"</code>.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">String</span> VERSION <span class="op">=</span> <span class="st">&quot;0.1&quot;</span><span class="op">;</span></span></code></pre></div>
+<p>And from the root of your project (the same folder as
+<code>gradlew.bat</code>), and run <code>.\gradlew.bat runClient</code>.
+If you've done everything right, then this'll (after a bit of loading)
+start Minecraft 1.8.9 with forge, and if you look at the mods section,
+you should see yours! And if you now click on it, you'll see that
+there's no description; lets change that.</p>
+<p>Go to <code>src/main/resources/mcmod.info</code>, and change it to
+this.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>[{</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;modid&quot;</span><span class="op">:</span> <span class="st">&quot;Cam&#39;s Mod&quot;</span><span class="op">,</span> <span class="co">// Note that this has to match whatever you set MODID to in the Java file.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;name&quot;</span><span class="op">:</span> <span class="st">&quot;A very cool mod&quot;</span><span class="op">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;description&quot;</span><span class="op">:</span> <span class="st">&quot;Does funky stuff.&quot;</span><span class="op">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;version&quot;</span><span class="op">:</span> <span class="st">&quot;0.1&quot;</span><span class="op">,</span> <span class="co">// Note that this has to match whatever you set VERSION to in the Java file.</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;mcversion&quot;</span><span class="op">:</span> <span class="st">&quot;1.10.2&quot;</span><span class="op">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;logoFile&quot;</span><span class="op">:</span> <span class="st">&quot;assets/examplemod/textures/logo.png&quot;</span><span class="op">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;url&quot;</span><span class="op">:</span> <span class="st">&quot;github.com/vibe-876/minecraft-mod&quot;</span><span class="op">,</span> <span class="co">// I haven&#39;t made this yet, so don&#39;t bother trying.</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;updateJSON&quot;</span><span class="op">:</span> <span class="st">&quot;minecraftforge.net/versions.json&quot;</span><span class="op">,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;authorList&quot;</span><span class="op">:</span> [<span class="st">&quot;Cam A.&quot;</span>]<span class="op">,</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;credits&quot;</span><span class="op">:</span> <span class="st">&quot;This wouldn&#39;t have been possible without the Forge documentation, minecraftforum.net, and whoever discovered caffeine.&quot;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>}]</span></code></pre></div>
+<p>And now launch the game again, and it should show up with that
+description when you select it in the mod menu! This is in a format
+called JSON (JavaScript Object Notation), which is common among the
+programming industry (along with its competitors, XML, and <a
+href="https://en.wikipedia.org/wiki/S-expression">Sexps</a>).</p>
+<h1 id="getting-to-know-gradle">Getting to Know Gradle</h1>
+<p>We discussed Gradle a bit in <a href="setting-up-java.html">the last
+entry</a>, but we didn't go into too much detail. As mentioned last
+time, Gradle automates compiling all of the code, and it's not just used
+in Minecraft, but <a href="https://enlyft.com/tech/products/gradle">all
+across the programming industry</a>.</p>
+<p>As it turns out, there exists other Gradle commands we can run as
+well (who'd of thought…)</p>
+<ul>
+<li><code>\.gradlew test</code> will run all of the unit tests (this
+will be discussed further in a later entry).</li>
+<li><code>\.gradlew runServer</code> will start a modded Minecraft
+server.</li>
+<li><code>\.gradlew help</code> will tell you all of the other commands
+available.</li>
+</ul>
+<p>Now you might be wondering why the command is <code>gradlew</code>,
+when the program is called Gradle. This is because Gradle creates a
+wrapper script (a script to run itself), that makes sure all of the
+necessary programs are installed to the correct version, and that Gradle
+is being used properly. You can of course, just use Gradle directly
+(say, running <code>gradle runClient</code>), but this isn't
+recommended, and might not work as expected due to versioning
+issues.</p>
+</body>
+</html>

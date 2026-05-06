@@ -33,6 +33,65 @@ start actually putting something on this blog! Might even make an RSS
 feed too, but not yet…</p>
 <p>I also might end up automating the part where I push to Github, but
 not yet.</p>
+</content></entry><entry><title>Minecraft Modding on 1.8.9: First Fun With Forge</title><link>https://vibe-876.github.io/posts/first-fun-with-forge.html</link><description>>:3</description><content type="html"><h1 id="getting-forge-started">Getting Forge Started</h1>
+<p>Go over to where your Forge zip was unziped, and open
+<code>src/main/java/com/example/examplemod/ExampleMod.java</code>. Now,
+change <code>MODID</code> to whatever you want your mod to be called</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">String</span> MODID <span class="op">=</span> <span class="st">&quot;Cam&#39;s Mod&quot;</span><span class="op">;</span></span></code></pre></div>
+<p>And then set the version number to <code>"0.1"</code>.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> <span class="bu">String</span> VERSION <span class="op">=</span> <span class="st">&quot;0.1&quot;</span><span class="op">;</span></span></code></pre></div>
+<p>And from the root of your project (the same folder as
+<code>gradlew.bat</code>), and run <code>.\gradlew.bat runClient</code>.
+If you've done everything right, then this'll (after a bit of loading)
+start Minecraft 1.8.9 with forge, and if you look at the mods section,
+you should see yours! And if you now click on it, you'll see that
+there's no description; lets change that.</p>
+<p>Go to <code>src/main/resources/mcmod.info</code>, and change it to
+this.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>[{</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;modid&quot;</span><span class="op">:</span> <span class="st">&quot;Cam&#39;s Mod&quot;</span><span class="op">,</span> <span class="co">// Note that this has to match whatever you set MODID to in the Java file.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;name&quot;</span><span class="op">:</span> <span class="st">&quot;A very cool mod&quot;</span><span class="op">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;description&quot;</span><span class="op">:</span> <span class="st">&quot;Does funky stuff.&quot;</span><span class="op">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;version&quot;</span><span class="op">:</span> <span class="st">&quot;0.1&quot;</span><span class="op">,</span> <span class="co">// Note that this has to match whatever you set VERSION to in the Java file.</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;mcversion&quot;</span><span class="op">:</span> <span class="st">&quot;1.10.2&quot;</span><span class="op">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;logoFile&quot;</span><span class="op">:</span> <span class="st">&quot;assets/examplemod/textures/logo.png&quot;</span><span class="op">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;url&quot;</span><span class="op">:</span> <span class="st">&quot;github.com/vibe-876/minecraft-mod&quot;</span><span class="op">,</span> <span class="co">// I haven&#39;t made this yet, so don&#39;t bother trying.</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;updateJSON&quot;</span><span class="op">:</span> <span class="st">&quot;minecraftforge.net/versions.json&quot;</span><span class="op">,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;authorList&quot;</span><span class="op">:</span> [<span class="st">&quot;Cam A.&quot;</span>]<span class="op">,</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;credits&quot;</span><span class="op">:</span> <span class="st">&quot;This wouldn&#39;t have been possible without the Forge documentation, minecraftforum.net, and whoever discovered caffeine.&quot;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>}]</span></code></pre></div>
+<p>And now launch the game again, and it should show up with that
+description when you select it in the mod menu! This is in a format
+called JSON (JavaScript Object Notation), which is common among the
+programming industry (along with its competitors, XML, and <a
+href="https://en.wikipedia.org/wiki/S-expression">Sexps</a>).</p>
+<h1 id="getting-to-know-gradle">Getting to Know Gradle</h1>
+<p>We discussed Gradle a bit in <a href="setting-up-java.html">the last
+entry</a>, but we didn't go into too much detail. As mentioned last
+time, Gradle automates compiling all of the code, and it's not just used
+in Minecraft, but <a href="https://enlyft.com/tech/products/gradle">all
+across the programming industry</a>.</p>
+<p>As it turns out, there exists other Gradle commands we can run as
+well (who'd of thought…)</p>
+<ul>
+<li><code>\.gradlew test</code> will run all of the unit tests (this
+will be discussed further in a later entry).</li>
+<li><code>\.gradlew runServer</code> will start a modded Minecraft
+server.</li>
+<li><code>\.gradlew help</code> will tell you all of the other commands
+available.</li>
+</ul>
+<p>Now you might be wondering why the command is <code>gradlew</code>,
+when the program is called Gradle. This is because Gradle creates a
+wrapper script (a script to run itself), that makes sure all of the
+necessary programs are installed to the correct version, and that Gradle
+is being used properly. You can of course, just use Gradle directly
+(say, running <code>gradle runClient</code>), but this isn't
+recommended, and might not work as expected due to versioning
+issues.</p>
 </content></entry><entry><title>Using Maven</title><link>https://vibe-876.github.io/posts/maven-guide.html</link><description>>:3</description><content type="html"><h1 id="what-is-this">What is This</h1>
 <p>I need to do a group project in Javafor uni, and as a team, we
 decided on using Maven. However, not everyone on the team knows how to
@@ -216,8 +275,8 @@ started.</p>
 </content></entry><entry><title>Minecraft Modding on 1.8.9: Setting up Java</title><link>https://vibe-876.github.io/posts/setting-up-java.html</link><description>>:3</description><content type="html"><h1 id="getting-started">Getting Started</h1>
 <p>So you want to program a Minecraft mod for 1.8.9. It's a niche genre
 of person who wants to do that, I can respect it. If you only came here
-for source code examples, they can be found on my Github here (fix me
-before posting).</p>
+for source code examples, they can be found on my Github <a
+href="https://github.com/vibe-876/java-tutorial-code">here</a>.</p>
 <p>The first thing you're going to need is a JDK, or Java Development
 Toolkit, and for 1.8.9, you'll need Java 8 specifically. I personally
 use OpenJDK, which can be downloaded <a
@@ -231,11 +290,10 @@ you'll also need the 1.8.9 <a
 href="https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html">MDK</a>
 (Minecraft Development Toolkit), <a
 href="https://git-scm.com/install//windows">git</a>, and <a
-href="https://eclipseide.org/">Eclipse IDE</a> (you can use whatever IDE
-you want, but this guide will be in Eclipse, because they gave me a pen
-at FOSDEM). And if you don't already have a Github account, now would
-probably be the time to make one (much like the editor, it doesn't have
-to be Github, but I'll be focusing on it).</p>
+href="https://www.gnu.org/software/emacs/">GNU Emacs</a></p>
+<p>And if you don't already have a Github account, now would probably be
+the time to make one (much like the editor, it doesn't have to be
+Github, but I'll be focusing on it).</p>
 <p>After going through the Java installer, go into powershell, and go to
 wherever you downloaded the MDK zip to. You can either do this by
 opening the folder in File Explorer, right clicking, and clicking open
@@ -261,5 +319,121 @@ called <a href="https://gradle.org/">Gradle</a>. Gradle is a build
 system, which is a piece of software that helps us compile and run code.
 Some projects have thousands of files, and it would be a pain to compile
 each of those by hand, so these programs do it for us.</p>
-<h1 id="setting-up-eclipse">Setting up Eclipse</h1>
+<h1 id="setting-up-emacs">Setting up Emacs</h1>
+<p>First, download Emacs from <a
+href="https://www.gnu.org/software/emacs/">https://www.gnu.org/software/emacs/</a>.
+Then, download <a
+href="https://raw.githubusercontent.com/vibe-876/java-tutorial-code/refs/heads/main/init.el">https://raw.githubusercontent.com/vibe-876/java-tutorial-code/refs/heads/main/init.el</a>,
+and place it at <code>~/.emacs.d/init.el</code>. This will be the text
+editor we'll use – it should be fairly straight forward to figure out
+what that script is doing, but if not, it'll be explained as we go.</p>
+<h1 id="a-taste-of-java-8">A Taste of Java 8</h1>
+<p>Create a new folder, and put two Java files into it –
+<code>Main.java</code>, and <code>Student.java</code>, and then write
+the following into them. For <code>Student.java</code>, write</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> A basic call for describing a student at a school<span class="co">.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="an">@author</span> Cam A<span class="co">.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="an">@version</span> <span class="co">1.0</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Student <span class="op">{</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> firstName<span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> lastName<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">int</span> age<span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> Constructs a new Student object<span class="co">.</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> <span class="an">@param</span><span class="co"> </span><span class="an">firstName</span><span class="co"> </span>the first name of the student</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> <span class="an">@param</span><span class="co"> </span><span class="an">lastName</span><span class="co"> </span>the last name of the student</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> <span class="an">@param</span><span class="co"> </span><span class="an">age</span><span class="co"> </span>the age of the student</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">Student</span><span class="op">(</span><span class="bu">String</span> firstName<span class="op">,</span> <span class="bu">String</span> lastName<span class="op">,</span> <span class="dt">int</span> age<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="fu">firstName</span> <span class="op">=</span> firstName<span class="op">;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="fu">lastName</span> <span class="op">=</span> lastName<span class="op">;</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="fu">age</span> <span class="op">=</span> age<span class="op">;</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> Getter function for the students name<span class="co">. </span>Combines the firstName</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> and lastName private variables<span class="co">.</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> <span class="an">@return</span> the full name of the student</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getName</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">firstName</span> <span class="op">+</span> <span class="st">&quot; &quot;</span> <span class="op">+</span> <span class="kw">this</span><span class="op">.</span><span class="fu">lastName</span><span class="op">);</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> Getter function for the students age<span class="co">,</span> int years<span class="co">.</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> <span class="an">@return</span> the age of the student</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">getAge</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">age</span><span class="op">);</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> Increases the students age in years<span class="co">.</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> <span class="an">@param</span><span class="co"> </span><span class="an">howManyYearsOlder</span><span class="co"> </span>how many years older the student now is</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">gottenOlder</span><span class="op">(</span><span class="dt">int</span> howManyYearsOlder<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="fu">age</span> <span class="op">=</span> <span class="kw">this</span><span class="op">.</span><span class="fu">age</span> <span class="op">+</span> howManyYearsOlder<span class="op">;</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> Checks if the student is <span class="co">18</span> yet<span class="co">.</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> <span class="an">@return</span> true if the student is older than <span class="co">18,</span> and false otherwise</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">isStudentEighteen</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span><span class="op">(</span><span class="kw">this</span><span class="op">.</span><span class="fu">age</span> <span class="op">&lt;</span> <span class="dv">18</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span><span class="op">(</span><span class="kw">false</span><span class="op">);</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span><span class="op">(</span><span class="kw">true</span><span class="op">);</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>And for <code>Main.java</code>, write</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> Main class<span class="co">.</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="an">@author</span> Cam A<span class="co">.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="an">@version</span> <span class="co">1.0</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Main <span class="op">{</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> Adds a new student<span class="co">. </span>Warning<span class="co">:</span> will crash if less than three arguments</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> are provided<span class="co">.</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> <span class="an">@param</span><span class="co"> </span><span class="an">args</span><span class="co"> </span>the students first name<span class="co">,</span> followed by their last name<span class="co">,</span> followed by their age</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>     <span class="co">*</span> <span class="an">@see</span> Student</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>     <span class="co">*/</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  Student newStudent <span class="op">=</span> <span class="kw">new</span> <span class="fu">Student</span><span class="op">(</span>args<span class="op">[</span><span class="dv">0</span><span class="op">],</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>               args<span class="op">[</span><span class="dv">1</span><span class="op">],</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>               <span class="bu">Integer</span><span class="op">.</span><span class="fu">parseInt</span><span class="op">(</span>args<span class="op">[</span><span class="dv">2</span><span class="op">]));</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Student &quot;</span> <span class="op">+</span> newStudent<span class="op">.</span><span class="fu">getName</span><span class="op">()</span> <span class="op">+</span> <span class="st">&quot; is &quot;</span> <span class="op">+</span> newStudent<span class="op">.</span><span class="fu">getAge</span><span class="op">()</span> <span class="op">+</span> <span class="st">&quot; years old.&quot;</span><span class="op">);</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Now, you can run <code>javac Main.java Student.java</code>, and then
+<code>java Main Gerard Way 49</code> (yes I was listening to MCR while
+writing this, how could you tell?) in the terminal (after opening this
+as a project, of course). What happens if you don't include any
+arguments to <code>Main</code>?</p>
+<h1 id="exercises">Exercises</h1>
+<ol>
+<li>Make it so the program doesn't crash when you don't give it good
+arguments. This is sometimes known as defensive programming.</li>
+<li>Add your own JavaDoc (the special comments) for the things you've
+edited, and give yourself credit with an <code>@author</code> tag.</li>
+<li>Add a new feature to <code>Student.java</code>, that changes the
+student's name. After this, try changing <code>Main.java</code> so that
+the fourth argument is the new name of the student.</li>
+</ol>
 </content></entry></channel></rss>
