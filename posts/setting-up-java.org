@@ -8,12 +8,13 @@
 * Getting Started
 So you want to program a Minecraft mod for 1.8.9.
 It's a niche genre of person who wants to do that, I can respect it.
-If you only came here for source code examples, they can be found on my Github here (fix me before posting).
+If you only came here for source code examples, they can be found on my Github [[https://github.com/vibe-876/java-tutorial-code][here]].
 
 The first thing you're going to need is a JDK, or Java Development Toolkit, and for 1.8.9, you'll need Java 8 specifically.
 I personally use OpenJDK, which can be downloaded [[https://github.com/adoptium/temurin8-binaries/releases/tag/jdk8u482-b08][here]], and you'll want the version starting with ~OpenJDK8U-jdk_<your-cpu-arch>_<your-OS>~.
 For example, if you're on windows, with a 64 bit x64 CPU, then you download ~OpenJDK8U-jdk_x64_windows_hotspot_8u482b08.msi~ (if you don't know which is you, it's probably this one).
-After getting that, you'll also need the 1.8.9 [[https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html][MDK]] (Minecraft Development Toolkit), [[https://git-scm.com/install//windows][git]], and [[https://eclipseide.org/][Eclipse IDE]] (you can use whatever IDE you want, but this guide will be in Eclipse, because they gave me a pen at FOSDEM).
+After getting that, you'll also need the 1.8.9 [[https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html][MDK]] (Minecraft Development Toolkit), [[https://git-scm.com/install//windows][git]], and [[https://www.gnu.org/software/emacs/][GNU Emacs]]
+# (you can use whatever IDE you want, but this guide will be in Eclipse, because they gave me a pen at FOSDEM).
 And if you don't already have a Github account, now would probably be the time to make one (much like the editor, it doesn't have to be Github, but I'll be focusing on it).
 
 After going through the Java installer, go into powershell, and go to wherever you downloaded the MDK zip to.
@@ -36,11 +37,15 @@ Granted, there are barely any running in it, but we'll fix that soon enough.
 Gradle is a build system, which is a piece of software that helps us compile and run code.
 Some projects have thousands of files, and it would be a pain to compile each of those by hand, so these programs do it for us.
 
-* Setting up Eclipse
-Open eclipse, and select wherever it is that you extracted the forge zip to as the project root.
-To ensure we're using the correct version of Java (OpenJDK 8), go to Window, then select Preferences.
-From there, go select Java, then Installed JREs (Java Runtime Environments), and select Java 8.
-If Java 8 isn't there, then something has gone wrong, and you should fix that before going any further.
+* Setting up Emacs
+First, download Emacs from https://www.gnu.org/software/emacs/.
+Then, download [[https://raw.githubusercontent.com/vibe-876/java-tutorial-code/refs/heads/main/init.el]], and place it at ~~/.emacs.d/init.el~.
+This will be the text editor we'll use -- it should be fairly straight forward to figure out what that script is doing, but if not, it'll be explained as we go.
+
+# Open eclipse, and select wherever it is that you extracted the forge zip to as the project root.
+# To ensure we're using the correct version of Java (OpenJDK 8), go to Window, then select Preferences.
+# From there, go select Java, then Installed JREs (Java Runtime Environments), and select Java 8.
+# If Java 8 isn't there, then something has gone wrong, and you should fix that before going any further.
 
 * A Taste of Java 8
 Create a new folder, and put two Java files into it -- ~Main.java~, and ~Student.java~, and then write the following into them.
@@ -139,7 +144,7 @@ And for ~Main.java~, write
   }
 #+end_src
 
-Now, you can run ~javac Main.java Student.java~, and then ~java Main Gerard Way 49~ (yes I was listening to MCR while writing this, how could you tell?) in the Eclipse terminal (after opening this as a project, of course).
+Now, you can run ~javac Main.java Student.java~, and then ~java Main Gerard Way 49~ (yes I was listening to MCR while writing this, how could you tell?) in the terminal (after opening this as a project, of course).
 What happens if you don't include any arguments to ~Main~?
 
 * Exercises

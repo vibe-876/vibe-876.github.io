@@ -98,8 +98,8 @@
 <h1 id="getting-started">Getting Started</h1>
 <p>So you want to program a Minecraft mod for 1.8.9. It's a niche genre
 of person who wants to do that, I can respect it. If you only came here
-for source code examples, they can be found on my Github here (fix me
-before posting).</p>
+for source code examples, they can be found on my Github <a
+href="https://github.com/vibe-876/java-tutorial-code">here</a>.</p>
 <p>The first thing you're going to need is a JDK, or Java Development
 Toolkit, and for 1.8.9, you'll need Java 8 specifically. I personally
 use OpenJDK, which can be downloaded <a
@@ -113,11 +113,10 @@ you'll also need the 1.8.9 <a
 href="https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html">MDK</a>
 (Minecraft Development Toolkit), <a
 href="https://git-scm.com/install//windows">git</a>, and <a
-href="https://eclipseide.org/">Eclipse IDE</a> (you can use whatever IDE
-you want, but this guide will be in Eclipse, because they gave me a pen
-at FOSDEM). And if you don't already have a Github account, now would
-probably be the time to make one (much like the editor, it doesn't have
-to be Github, but I'll be focusing on it).</p>
+href="https://www.gnu.org/software/emacs/">GNU Emacs</a></p>
+<p>And if you don't already have a Github account, now would probably be
+the time to make one (much like the editor, it doesn't have to be
+Github, but I'll be focusing on it).</p>
 <p>After going through the Java installer, go into powershell, and go to
 wherever you downloaded the MDK zip to. You can either do this by
 opening the folder in File Explorer, right clicking, and clicking open
@@ -143,13 +142,14 @@ called <a href="https://gradle.org/">Gradle</a>. Gradle is a build
 system, which is a piece of software that helps us compile and run code.
 Some projects have thousands of files, and it would be a pain to compile
 each of those by hand, so these programs do it for us.</p>
-<h1 id="setting-up-eclipse">Setting up Eclipse</h1>
-<p>Open eclipse, and select wherever it is that you extracted the forge
-zip to as the project root. To ensure we're using the correct version of
-Java (OpenJDK 8), go to Window, then select Preferences. From there, go
-select Java, then Installed JREs (Java Runtime Environments), and select
-Java 8. If Java 8 isn't there, then something has gone wrong, and you
-should fix that before going any further.</p>
+<h1 id="setting-up-emacs">Setting up Emacs</h1>
+<p>First, download Emacs from <a
+href="https://www.gnu.org/software/emacs/">https://www.gnu.org/software/emacs/</a>.
+Then, download <a
+href="https://raw.githubusercontent.com/vibe-876/java-tutorial-code/refs/heads/main/init.el">https://raw.githubusercontent.com/vibe-876/java-tutorial-code/refs/heads/main/init.el</a>,
+and place it at <code>~/.emacs.d/init.el</code>. This will be the text
+editor we'll use – it should be fairly straight forward to figure out
+what that script is doing, but if not, it'll be explained as we go.</p>
 <h1 id="a-taste-of-java-8">A Taste of Java 8</h1>
 <p>Create a new folder, and put two Java files into it –
 <code>Main.java</code>, and <code>Student.java</code>, and then write
@@ -246,9 +246,9 @@ class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Now, you can run <code>javac Main.java Student.java</code>, and then
 <code>java Main Gerard Way 49</code> (yes I was listening to MCR while
-writing this, how could you tell?) in the Eclipse terminal (after
-opening this as a project, of course). What happens if you don't include
-any arguments to <code>Main</code>?</p>
+writing this, how could you tell?) in the terminal (after opening this
+as a project, of course). What happens if you don't include any
+arguments to <code>Main</code>?</p>
 <h1 id="exercises">Exercises</h1>
 <ol>
 <li>Make it so the program doesn't crash when you don't give it good
