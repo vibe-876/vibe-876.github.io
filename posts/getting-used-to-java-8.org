@@ -3,7 +3,7 @@
 #+date: 2026-05-20
 
 
-We installed Java 8 in [[first-fun-with-forge.html][a previous entry]], so lets start using it.
+We installed Java 8 in [[file:first-fun-with-forge.html][a previous entry]], so lets start using it.
 
 * Working on the Previous Code
 Recall ~Student.java~, and ~Main.java~.
@@ -23,6 +23,10 @@ For example, we can have the following classes:
 
       public String getName() {
           return(this.name);
+      }
+
+      public void setAge(int newAge) {
+  	this.age = newAge;
       }
 
       public void setName(String name) {
