@@ -61,5 +61,5 @@ For example, we can have the following classes:
 Now, run the classic ~javac Animal.java Chicken.java Main.java~, and then ~java Main~.
 
 * Exercises
-Recall ~Main.java~ and ~Student.java~ from [[setting-up-java.html][a previous post]].
+Recall ~Main.java~ and ~Student.java~ from [[file:setting-up-java.html][a previous post]].
 Try making a general ~Person.java~, that both ~Student.java~ and ~Employee.java~ inherit from.
