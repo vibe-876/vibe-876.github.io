@@ -18,19 +18,19 @@ For example, we can have the following classes:
       private String name;
 
       public int getAge() {
-  	return(this.age);
+          return(this.age);
       }
 
       public String getName() {
-  	return(this.name);
+          return(this.name);
       }
 
       public void setName(String name) {
-  	this.name = name;
+          this.name = name;
       }
 
       public void getOlder() {
-  	this.age = this.age + 1;
+          this.age = this.age + 1;
       }
   }
 #+end_src
@@ -38,12 +38,12 @@ For example, we can have the following classes:
 #+begin_src java
   public class Chicken extends Animal {
       public Chicken(String chickensName) {
-  	this.setAge(0);
-  	this.setName(chickensName);
+          this.setAge(0);
+          this.setName(chickensName);
       }
       
       public void peck() {
-  	/* Pecks something */
+          /* Pecks something */
       }
   }
 #+end_src
@@ -52,8 +52,8 @@ For example, we can have the following classes:
 #+begin_src java
   public class Main {
       public static void main(String[] args) {
-  	Chicken myChicken = new Chicken("Bishop");
-  	System.out.println("My chicken is called " + myChicken.getName() + ".");
+          Chicken myChicken = new Chicken("Bishop");
+          System.out.println("My chicken is called " + myChicken.getName() + ".");
       }
   }
 #+end_src
