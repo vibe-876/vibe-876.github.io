@@ -1,0 +1,65 @@
+#+title: Minecraft Modding on 1.8.9: Getting Used to Java 8
+#+author: Cam A.
+#+date: 2026-05-20
+
+
+We installed Java 8 in [[first-fun-with-forge.html][a previous entry]], so lets start using it.
+
+* Working on the Previous Code
+Recall ~Student.java~, and ~Main.java~.
+We're going to implement inheritance in them.
+
+** What is This Mysterious "Inheritance"?
+Within an Object Oriented (OO) language, inheritance refers to a class that gets properties (methods and variables) from another class.
+For example, we can have the following classes:
+#+begin_src java
+  public class Animal {
+      private int age;
+      private String name;
+
+      public int getAge() {
+  	return(this.age);
+      }
+
+      public String getName() {
+  	return(this.name);
+      }
+
+      public void setName(String name) {
+  	this.name = name;
+      }
+
+      public void getOlder() {
+  	this.age = this.age + 1;
+      }
+  }
+#+end_src
+
+#+begin_src java
+  public class Chicken extends Animal {
+      public Chicken(String chickensName) {
+  	this.setAge(0);
+  	this.setName(chickensName);
+      }
+      
+      public void peck() {
+  	/* Pecks something */
+      }
+  }
+#+end_src
+
+~Chicken~ has inherited all the methods and variables from ~Animal~, so we could do something like this.
+#+begin_src java
+  public class Main {
+      public static void main(String[] args) {
+  	Chicken myChicken = new Chicken("Bishop");
+  	System.out.println("My chicken is called " + myChicken.getName() + ".");
+      }
+  }
+#+end_src
+
+Now, run the classic ~javac Animal.java Chicken.java Main.java~, and then ~java Main~.
+
+* Exercises
+Recall ~Main.java~ and ~Student.java~ from [[setting-up-java.html][a previous post]].
+Try making a general ~Person.java~, that both ~Student.java~ and ~Employee.java~ inherit from.
