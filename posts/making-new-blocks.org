@@ -1,0 +1,13 @@
+#+title: Minecraft Modding on 1.8.9: Creating New "Things"
+#+author: Cam A.
+#+date: 2026-06-09
+
+
+* Registration
+The first concept that needs to be understood with creating new "things" in Minecraft mods is the concept of registers.
+If an item isn't registered, then Minecraft won't be able to see if it exists.
+
+
+
+
+Edit main with a loop
