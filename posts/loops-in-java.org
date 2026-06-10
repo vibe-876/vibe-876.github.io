@@ -1,0 +1,53 @@
+#+title: Minecraft Modding on 1.8.9: Creating New "Things"
+#+author: Cam A.
+#+date: 2026-06-09
+
+
+* Loops
+Loops are a fundamental concept in many programming languages, including Java, which has two basic types of loops: the for loop, and the while loop.
+For loop look like this (note that ~i++~ in Java means ~i = i + 1~)
+#+begin_src java
+  for(int i = 0; i < 10; i++) {
+      System.out.println(i);
+  }
+#+end_src
+
+While while loops look like this
+#+begin_src java
+  int i = 0;
+
+  while(i < 10) {
+      System.out.println(i);
+      i = i + 1;
+  }
+#+end_src
+
+Both of these will do the same thing, that is, print out the integers between 0 and 9.
+
+** Times You Should Use a While Loop
+While loops are useful when you have a strict condition for when the loop should end.
+For example, if you were getting a user to input a username, you could have something like this:
+#+begin_src java
+  String username;
+
+  while(notValid(username)) {
+      /* Get them to enter another username. */
+  }
+#+end_src
+
+Note that it's taking a boolean (something that will either be true or false), so ~notValid~ must return something like that.
+
+** Times You Should Use a For Loop
+For loops are useful for when you have a set number of things to iterate through, for example, an array:
+#+begin_src java
+  for(int i = 0; i < myList.length; i++) {
+      System.out.println(myList[i]);
+  }
+#+end_src
+
+
+* Exercises
+1. Take the code from last time, and update the main function so that it adds this list of employees
+   #+begin_src java
+     String[] employees = ["Cam", "Esme", "Noah", "Faith", "Aria", "Amelie", "Stella", "Owen", "Tav"];
+   #+end_src
