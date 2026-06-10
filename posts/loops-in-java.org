@@ -1,4 +1,4 @@
-#+title: Minecraft Modding on 1.8.9: Creating New "Things"
+#+title: Minecraft Modding on 1.8.9: Loops in Java
 #+author: Cam A.
 #+date: 2026-06-09
 
